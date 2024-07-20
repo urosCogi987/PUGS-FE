@@ -1,175 +1,152 @@
-<form 
-    class="container p-5" 
-    [formGroup]="registerForm"
-    (ngSubmit)="$event.preventDefault(); submitForm()"
->
-    <div class="mb-3 col-3">
-        <label class="form-label">Username</label>
-        <input 
-            type="text" 
-            class="form-control"
+<div class="box-shadow registration">
+    <h1>Registration</h1>
+    <form
+      class="container form"
+      [formGroup]="registerForm"
+      (ngSubmit)="$event.preventDefault(); submitForm()"
+    >
+      <div class="mb-3">
+        <mat-form-field class="example-full-width">
+          <mat-label>Username</mat-label>
+          <input
+            type="text"
+            matInput
             formControlName="userUsername"
-        >
-        <div *ngIf="registerForm.get('userUsername')?.invalid &&
-                    (registerForm.get('userUsername')?.touched ||
-                    registerForm.get('userUsername')?.dirty)"
-        >
-            <small 
-                class="text-danger"
-                *ngIf="registerForm.get('userUsername')?.hasError('required')"
-            >Username is required</small>
-        </div>
-    </div>
-
-    <div class="mb-3 col-3">
-        <label class="form-label">Email</label>
-        <input 
-            type="text" 
-            class="form-control"
+            placeholder="Enter your username"
+          />
+          @if (registerForm.get('userUsername')!.hasError('required')) {
+          <mat-error>Username is required</mat-error>
+          }
+        </mat-form-field>
+      </div>
+  
+      <div class="mb-3">
+        <mat-form-field class="example-full-width">
+          <mat-label>Email</mat-label>
+          <input
+            type="email"
+            matInput
             formControlName="userEmail"
-        >
-        <div *ngIf="registerForm.get('userEmail')?.invalid &&
-                    (registerForm.get('userEmail')?.touched ||
-                    registerForm.get('userEmail')?.dirty)"
-        >
-            <small 
-                class="text-danger"
-                *ngIf="registerForm.get('userEmail')?.hasError('required')"
-            >Email is required</small>
-            <small
-                class="text-danger" 
-                *ngIf="registerForm.get('userEmail')?.hasError('email')"
-            >Enter a valid email</small>
-        </div>
-    </div>
-
-    <div class="mb-3 col-3">
-        <label class="form-label">Name</label>
-        <input 
-            type="text" 
-            class="form-control"
+            placeholder="Enter your email"
+          />
+          @if (registerForm.get('userEmail')!.hasError('required')) {
+          <mat-error>Username is required</mat-error>
+          } @if (registerForm.get('userEmail')!.hasError('email')) {
+          <mat-error>Enter a valid email</mat-error>
+          }
+        </mat-form-field>
+      </div>
+  
+      <div class="mb-3">
+        <mat-form-field class="example-full-width">
+          <mat-label>Name</mat-label>
+          <input
+            type="text"
+            matInput
             formControlName="userName"
-        >
-        <div *ngIf="registerForm.get('userName')?.invalid &&
-                    (registerForm.get('userName')?.touched ||
-                    registerForm.get('userName')?.dirty)"
-        >
-            <small
-                class="text-danger"
-                *ngIf="registerForm.get('userName')?.hasError('required')"
-            >Name is required</small>
-        </div>
-    </div>
-
-    <div class="mb-3 col-3">
-        <label class="form-label">Surname</label>
-        <input 
-            type="text" 
-            class="form-control"
+            placeholder="Enter your Name"
+          />
+          @if (registerForm.get('userName')!.hasError('required')) {
+          <mat-error>Name is required</mat-error>
+          }
+        </mat-form-field>
+      </div>
+  
+      <div class="mb-3">
+        <mat-form-field class="example-full-width">
+          <mat-label>Surname</mat-label>
+          <input
+            type="text"
+            matInput
             formControlName="userSurname"
-        >
-        <div *ngIf="registerForm.get('userSurname')?.invalid &&
-                    (registerForm.get('userSurname')?.touched ||
-                    registerForm.get('userSurname')?.dirty)"
-        >
-            <small
-                class="text-danger"
-                *ngIf="registerForm.get('userSurname')?.hasError('required')"
-            >Surname is required</small>
-        </div>
-    </div>
-
-    <div class="mb-3 col-3">
-        <label class="form-label">Password</label>
-        <input 
-            type="password" 
-            class="form-control"
+            placeholder="Enter your surname"
+          />
+          @if (registerForm.get('userSurname')!.hasError('required')) {
+          <mat-error>Surname is required</mat-error>
+          }
+        </mat-form-field>
+      </div>
+  
+      <div class="mb-3">
+        <mat-form-field class="example-full-width">
+          <mat-label>Password</mat-label>
+          <input
+            type="password"
+            matInput
             formControlName="userPassword"
-        >
-        <div *ngIf="registerForm.get('userPassword')?.invalid &&
-                    (registerForm.get('userPassword')?.touched ||
-                    registerForm.get('userPassword')?.dirty)"
-        >
-            <small
-                class="text-danger"
-                *ngIf="registerForm.get('userPassword')?.hasError('required')"
-            >Password is required</small>
-            <small
-                class="text-danger"
-                *ngIf="registerForm.get('userPassword')?.hasError('minlength')"
-            >Password has to be at least 8 characters long</small>
-            <small
-                class="text-danger"
-                *ngIf="registerForm.get('userPassword')?.hasError('maxlength')"
-            >Password cannot be longer than 50 characters</small>
-        </div>
-    </div>
-
-    <div class="mb-3 col-3">
-        <label class="form-label">Repeat password</label>
-        <input 
-            type="password" 
-            class="form-control"
+            placeholder="Enter your password"
+          />
+          @if (registerForm.get('userPassword')!.hasError('required')) {
+          <mat-error>Password is required</mat-error>
+          } @if (registerForm.get('userPassword')!.hasError('minlength')) {
+          <mat-error>Password has to be at least 8 characters long</mat-error>
+          } @if (registerForm.get('userPassword')!.hasError('maxlength')) {
+          <mat-error>Password cannot be longer than 50 characters</mat-error>
+          }
+        </mat-form-field>
+      </div>
+  
+      <div class="mb-3">
+        <mat-form-field class="example-full-width">
+          <mat-label>Repeat password</mat-label>
+          <input
+            type="password"
+            matInput
             formControlName="userRepeatPassword"
-        >
-        <div *ngIf="registerForm.get('userRepeatPassword')?.invalid &&
-                    (registerForm.get('userRepeatPassword')?.touched ||
-                    registerForm.get('userRepeatPassword')?.dirty)"
-        >
-            <small
-                class="text-danger"
-                *ngIf="registerForm.get('userRepeatPassword')?.hasError('required')"
-            >Repeat password is required</small>
-            <small
-                class="text-danger"
-                *ngIf="registerForm.get('userRepeatPassword')?.hasError('passwordNoMatch')"
-            >Repeat password is required</small>
-        </div>        
-    </div>
-
-    <div class="mb-3 col-3">
-        <label class="form-label">Address</label>
-        <input 
-            type="text" 
-            class="form-control"
+            placeholder="Enter your repeated password"
+          />
+          @if (registerForm.get('userRepeatPassword')!.hasError('required')) {
+          <mat-error>Repeat password is required</mat-error>
+          } @if
+          (registerForm.get('userRepeatPassword')!.hasError('passwordNoMatch')) {
+          <mat-error>Passwords must match</mat-error>
+          }
+        </mat-form-field>
+      </div>
+  
+      <div class="mb-3">
+        <mat-form-field class="example-full-width">
+          <mat-label>Address</mat-label>
+          <input
+            type="text"
+            matInput
             formControlName="userAddress"
+            placeholder="Enter your address"
+          />
+          @if (registerForm.get('userAddress')!.hasError('required')) {
+          <mat-error>Address is required</mat-error>
+          }
+        </mat-form-field>
+      </div>
+  
+      <div class="mb-3">
+        <mat-form-field>
+          <mat-label>Role</mat-label>
+          <mat-select
+            formControlName="userRole"
+            [(ngModel)]="selectedRole"
+            name="role"
+          >
+            @for (role of roles; track role) {
+            <mat-option [value]="role.value">{{ role.viewValue }}</mat-option>
+            }
+          </mat-select>
+  
+          @if (registerForm.get('userRole')!.hasError('required')) {
+          <mat-error>Role is required</mat-error>
+          }
+        </mat-form-field>
+      </div>
+  
+      <div class="mb-3">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          mat-flat-button
+          [disabled]="registerForm.invalid"
         >
-        <div *ngIf="registerForm.get('userAddress')?.invalid &&
-                    (registerForm.get('userAddress')?.touched ||
-                    registerForm.get('userAddress')?.dirty)"
-        >
-            <small
-                class="text-danger"
-                *ngIf="registerForm.get('userAddress')?.hasError('required')"      
-            >Address is required</small>
-        </div>
-    </div>
-
-    <div class="mb-3 col-3">
-        <label class="form-label">Role</label>
-        <select 
-            class="form-control"
-            formControlName="userRole"    
-        >
-            <option value="User" selected>User</option>
-            <option value="Driver">Driver</option>
-        </select>
-        <div *ngIf="registerForm.get('userRole')?.invalid &&
-                    (registerForm.get('userRole')?.touched ||
-                    registerForm.get('userRole')?.dirty)"
-        >
-            <small
-                class="text-danger"
-                *ngIf="registerForm.get('userRole')?.hasError('required')"      
-            >Address is required</small>
-        </div>
-    </div>
-    
-    <div class="mb-3 col-3">
-        <button 
-            type="submit"
-            class="btn btn-primary"
-            [disabled]="registerForm.invalid"
-        >Register</button>
-    </div>    
-</form>
+          Register
+        </button>
+      </div>
+    </form>
+  </div>
