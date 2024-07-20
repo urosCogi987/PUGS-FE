@@ -2,7 +2,7 @@ import { CommonModule, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { repeatPasswordValidator } from './repeatPassword';
-import { AuthenticationService } from '../../../shared/services/authentication/authentication.service';
+import { AuthenticationService } from '../../shared/services/authentication.service';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';

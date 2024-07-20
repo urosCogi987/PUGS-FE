@@ -20,13 +20,7 @@ export const routes: Routes = [
       component: RegisterComponent,
     },
     {
-      path: '',
-      component: LayoutComponent,
-      children: [
-        {
-          path: 'dashboard',
-          component: DashboardComponent,
-        },
-      ],
+      path: `${ApplicationRoutes.Dashboard}`,
+      component: DashboardComponent,
     },
   ];
