@@ -3,29 +3,30 @@ import { LoginComponent } from './pages/login/login.component';
 import { LayoutComponent } from './pages/layout/layout.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { ApplicationRoutes } from './const/application-routes'; 
 
 export const routes: Routes = [
-    { 
-        path: '', 
-        redirectTo: 'register',
-        pathMatch: 'full'
-    },
-    { 
-        path: 'login', 
-        component: LoginComponent
+    {
+      path: '',
+      redirectTo: `${ApplicationRoutes.Registration}`,
+      pathMatch: 'full',
     },
     {
-        path: 'register',
-        component: RegisterComponent
+      path: `${ApplicationRoutes.Login}`,
+      component: LoginComponent,
     },
-    { 
-        path: '', 
-        component: LayoutComponent,
-         children: [
-            {
-                path: 'dashboard',
-                component: DashboardComponent
-            }
-        ]
-    }
-];
+    {
+      path: `${ApplicationRoutes.Registration}`,
+      component: RegisterComponent,
+    },
+    {
+      path: '',
+      component: LayoutComponent,
+      children: [
+        {
+          path: 'dashboard',
+          component: DashboardComponent,
+        },
+      ],
+    },
+  ];

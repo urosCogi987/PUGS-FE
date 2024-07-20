@@ -1,7 +1,34 @@
-mat-form-field {
-    width: 100%;
+.form-template-black {
+  background-color: var(--black-color-black-template);
   
+  button {
+    &.mdc-button {
+      --mdc-filled-button-disabled-container-color: var(--disabled-color-black-template);
+      --mdc-filled-button-disabled-label-text-color: var(--white-color-black-template);
+    }
+  }
+
+  h1, .link-text {
+    color: var(--white-color-black-template);
+  }
+
+  a {
+    &.mdc-button {
+      --mat-text-button-state-layer-color: var(--link-color-black-template);
+      color: var(--link-color-black-template);
+    }
+  }
+
+  mat-form-field {
+    --mdc-filled-text-field-hover-label-text-color: var(--hover-white-color-black-template);
+    --mat-select-enabled-arrow-color: var(--white-color-black-template);
+    --mdc-icon-button-icon-color: var(--white-color-black-template);
+    --mdc-filled-text-field-label-text-color: var(--white-color-black-template);
+    --mdc-filled-text-field-input-text-color: var(--white-color-black-template);
+    width: 100%;
+
     .mdc-text-field {
       --mdc-filled-text-field-container-color: none;
     }
   }
+}

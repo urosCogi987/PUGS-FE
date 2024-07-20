@@ -1,4 +1,23 @@
+:root {
+  --white-color-black-template: #fff;
+  --hover-white-color-black-template: #ffffffad;
+  --link-color-black-template: #58D2BA;
+  --black-color-black-template: #212623;
+  --disabled-color-black-template: #74777f;
+}
+
 .box-shadow {
-    box-shadow: 5px 5px 10px 0px rgb(0 0 0 / 25%);
+  box-shadow: 5px 5px 10px 0px var(--black-color-black-template);
     border-radius: 10px;
-  }
+}
+
+.p-relative{
+  position: relative;
+}
+
+.custom-error {
+  position: absolute;
+  font-size: 12px;
+  right: 0;
+  bottom: 0;
+}

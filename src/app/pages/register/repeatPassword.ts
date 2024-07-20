@@ -1,10 +1,11 @@
-import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
+import { AbstractControl, ValidationErrors, ValidatorFn, FormGroup } from "@angular/forms";
 
-export function repeatPasswordValidator() : ValidatorFn {
-    return (control: AbstractControl) : ValidationErrors | null => {
-        debugger
-        return control.value.userPassword === control.value.userRepeatPassword
-            ? null
-            : { passwordNoMatch: true };               
-    }
-}
+export const repeatPasswordValidator: ValidatorFn = (
+    control: AbstractControl
+  ): ValidationErrors | null => {
+    const formGroup = control as FormGroup;
+    const password = formGroup.get('password')?.value;
+    const repeatPassword = formGroup.get('repeatPassword')?.value;
+  
+    return password === repeatPassword ? null : { passwordNoMatch: true };
+  };

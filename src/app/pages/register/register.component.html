@@ -1,4 +1,4 @@
-<div class="box-shadow registration">
+<div class="box-shadow registration form-template-black">
     <h1>Registration</h1>
     <form
       class="container form"
@@ -11,10 +11,10 @@
           <input
             type="text"
             matInput
-            formControlName="userUsername"
+            formControlName="username"
             placeholder="Enter your username"
           />
-          @if (registerForm.get('userUsername')!.hasError('required')) {
+          @if (registerForm.get('username')!.hasError('required')) {
           <mat-error>Username is required</mat-error>
           }
         </mat-form-field>
@@ -26,12 +26,12 @@
           <input
             type="email"
             matInput
-            formControlName="userEmail"
+            formControlName="email"
             placeholder="Enter your email"
           />
-          @if (registerForm.get('userEmail')!.hasError('required')) {
-          <mat-error>Username is required</mat-error>
-          } @if (registerForm.get('userEmail')!.hasError('email')) {
+          @if (registerForm.get('email')!.hasError('required')) {
+          <mat-error>Email is required</mat-error>
+          } @if (registerForm.get('email')!.hasError('email')) {
           <mat-error>Enter a valid email</mat-error>
           }
         </mat-form-field>
@@ -43,10 +43,10 @@
           <input
             type="text"
             matInput
-            formControlName="userName"
+            formControlName="name"
             placeholder="Enter your Name"
           />
-          @if (registerForm.get('userName')!.hasError('required')) {
+          @if (registerForm.get('name')!.hasError('required')) {
           <mat-error>Name is required</mat-error>
           }
         </mat-form-field>
@@ -58,10 +58,10 @@
           <input
             type="text"
             matInput
-            formControlName="userSurname"
+            formControlName="surname"
             placeholder="Enter your surname"
           />
-          @if (registerForm.get('userSurname')!.hasError('required')) {
+          @if (registerForm.get('surname')!.hasError('required')) {
           <mat-error>Surname is required</mat-error>
           }
         </mat-form-field>
@@ -73,35 +73,35 @@
           <input
             type="password"
             matInput
-            formControlName="userPassword"
+            formControlName="password"
             placeholder="Enter your password"
           />
-          @if (registerForm.get('userPassword')!.hasError('required')) {
+          @if (registerForm.get('password')!.hasError('required')) {
           <mat-error>Password is required</mat-error>
-          } @if (registerForm.get('userPassword')!.hasError('minlength')) {
+          } @if (registerForm.get('password')!.hasError('minlength')) {
           <mat-error>Password has to be at least 8 characters long</mat-error>
-          } @if (registerForm.get('userPassword')!.hasError('maxlength')) {
+          } @if (registerForm.get('password')!.hasError('maxlength')) {
           <mat-error>Password cannot be longer than 50 characters</mat-error>
           }
         </mat-form-field>
       </div>
   
-      <div class="mb-3">
+      <div class="mb-3 p-relative">
         <mat-form-field class="example-full-width">
           <mat-label>Repeat password</mat-label>
           <input
             type="password"
             matInput
-            formControlName="userRepeatPassword"
+            formControlName="repeatPassword"
             placeholder="Enter your repeated password"
           />
-          @if (registerForm.get('userRepeatPassword')!.hasError('required')) {
+          @if (registerForm.get('repeatPassword')?.hasError('required')) {
           <mat-error>Repeat password is required</mat-error>
-          } @if
-          (registerForm.get('userRepeatPassword')!.hasError('passwordNoMatch')) {
-          <mat-error>Passwords must match</mat-error>
-          }
+          } 
         </mat-form-field>
+        @if (registerForm.hasError('repeatPassword')) {
+        <mat-error class="custom-error">Passwords must match</mat-error>
+        }
       </div>
   
       <div class="mb-3">
@@ -110,11 +110,33 @@
           <input
             type="text"
             matInput
-            formControlName="userAddress"
+            formControlName="address"
             placeholder="Enter your address"
           />
-          @if (registerForm.get('userAddress')!.hasError('required')) {
+          @if (registerForm.get('address')!.hasError('required')) {
           <mat-error>Address is required</mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      <div class="mb-3">
+        <mat-form-field class="example-full-width">
+          <mat-label>Choose a date of birth</mat-label>
+          <input
+            formControlName="dateOfBirth"
+            [max]="today"
+            matInput
+            [matDatepicker]="picker"
+          />
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+
+          @if (registerForm.get('dateOfBirth')!.hasError('required')) {
+          <mat-error>Date of birth is required</mat-error>
           }
         </mat-form-field>
       </div>
@@ -123,7 +145,7 @@
         <mat-form-field>
           <mat-label>Role</mat-label>
           <mat-select
-            formControlName="userRole"
+            formControlName="roleName"
             [(ngModel)]="selectedRole"
             name="role"
           >
@@ -132,7 +154,7 @@
             }
           </mat-select>
   
-          @if (registerForm.get('userRole')!.hasError('required')) {
+          @if (registerForm.get('roleName')!.hasError('required')) {
           <mat-error>Role is required</mat-error>
           }
         </mat-form-field>
@@ -147,6 +169,11 @@
         >
           Register
         </button>
+      </div>
+
+      <div class="mb-3">
+        <span class="link-text">If you have an account, please</span>
+        <a mat-button [routerLink]="'/' + appRoutes.Login">Login</a>
       </div>
     </form>
   </div>

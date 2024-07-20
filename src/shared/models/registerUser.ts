@@ -1,12 +1,11 @@
-export class RegisterUser {
-    constructor(public username : string,                 
-                public name : string,
-                public surname: string,
-                public address: string,
-                public dateOfBirth: Date,
-                public password: string,
-                public repeatPassword: string,                
-                public roleName: string,
-                public email : string,) {    
-    }
+export interface RegistrationResponse {
+    username: string;
+    name: string;
+    surname: string;
+    address: string;
+    dateOfBirth: Date;
+    password: string;
+    repeatPassword: string;
+    roleName: string;
+    email: string;
 }
