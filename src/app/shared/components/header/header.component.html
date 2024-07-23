@@ -1,0 +1,27 @@
+<div class="header-container box-shadow">
+    <mat-card>
+      <div class="header-navigation">
+        <a
+          [routerLink]="appRoutes.Dashboard"
+          routerLinkActive="active"
+          class="header-link"
+        >
+          Dashboard
+        </a>
+      </div>
+
+      <div class="header-controls">
+        <ng-container *ngIf="isLoggedIn">
+          <button mat-button [matMenuTriggerFor]="menu">Profile</button>
+          <mat-menu #menu="matMenu">
+            <div class="panel-controls">
+              <button mat-flat-button [routerLink]="">Account</button>
+              <button mat-flat-button color="warn" (click)="logOut()">
+                Logout
+              </button>
+            </div>
+          </mat-menu>
+        </ng-container>
+      </div>
+    </mat-card>
+</div>
