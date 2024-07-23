@@ -1,26 +1,45 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './pages/login/login.component';
-import { LayoutComponent } from './pages/layout/layout.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { RegisterComponent } from './pages/register/register.component';
 import { ApplicationRoutes } from './const/application-routes'; 
+import { isLoggedInGuard } from './shared/guards/is-logged-in.guard';
+import { isNotLoggedInGuard } from './shared/guards/is-not-logged-in.guard';
 
 export const routes: Routes = [
     {
-      path: '',
-      redirectTo: `${ApplicationRoutes.Registration}`,
-      pathMatch: 'full',
-    },
-    {
-      path: `${ApplicationRoutes.Login}`,
-      component: LoginComponent,
+      path: '',      
+      loadComponent: () =>
+        import('./pages/dashboard/dashboard.component').then(
+          (c) => c.DashboardComponent
+        ),
+      canActivate: [isLoggedInGuard],
+      data: {
+        showHeader: true,
+      },
     },
     {
       path: `${ApplicationRoutes.Registration}`,
-      component: RegisterComponent,
+      loadComponent: () =>
+        import('./pages/register/register.component').then(
+          (c) => c.RegisterComponent
+        ),
+      canActivate: [isNotLoggedInGuard],
+      data: {
+        showHeader: false,
+      },
     },
     {
-      path: `${ApplicationRoutes.Dashboard}`,
-      component: DashboardComponent,
+      path: `${ApplicationRoutes.Login}`,
+      loadComponent: () =>
+        import('./pages/login/login.component').then(
+          (c) => c.LoginComponent
+        ),
+      canActivate: [isNotLoggedInGuard],
+      data: {
+        showHeader: false,
+      },
+    },
+    {
+      path: '**',
+      redirectTo: '',
+      pathMatch: 'full',
     },
   ];

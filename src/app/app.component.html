@@ -1,7 +1,9 @@
+<!-- async subscribe & unsubscribe -->
+@if (showHeader$ | async) {  
 <header>
     <app-header></app-header>
 </header>
-
+}
 <main>
     <router-outlet></router-outlet>
 </main>
