@@ -20,6 +20,7 @@ export class AuthenticationService {
   private readonly tokenNames = TokenNames;
   private accessToken?: string | null;
   private refreshToken?: string | null;
+  private userId?: string | null;
 
   protected loggedUser?: string | null;
 
@@ -145,7 +146,9 @@ export class AuthenticationService {
   private storeTokens(tokens: any) {
     this.accessToken = tokens.accessToken;
     this.refreshToken = tokens.refreshToken;
+    this.userId = tokens.userId;
     localStorage.setItem(this.tokenNames.ACCESS_TOKEN, tokens.accessToken);
     localStorage.setItem(this.tokenNames.REFRESH_TOKEN, tokens.refreshToken);
+    localStorage.setItem(this.tokenNames.USER_ID, tokens.userId);
   }  
 }
