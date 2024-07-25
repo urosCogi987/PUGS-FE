@@ -60,11 +60,17 @@ export class AuthenticationService {
     return this.accessToken || '';
   }
 
+  public get _userId(): string {
+    return this.userId || '';
+  }
+
   public removeTokens() {
     this.accessToken = null;
     this.refreshToken = null;
+    this.userId = null;
     localStorage.removeItem(this.tokenNames.ACCESS_TOKEN);
     localStorage.removeItem(this.tokenNames.REFRESH_TOKEN);
+    localStorage.removeItem(this.tokenNames.USER_ID);
   }
 
   public hasToken(): boolean {
@@ -124,6 +130,15 @@ export class AuthenticationService {
     this.doLogoutUser();
   }
 
+  // getUserId(): Observable<number>{
+  //   var userId = this.tokenNames.ACCESS_TOKEN;
+  //   return localStorage.getItem(this.tokenNames.ACCESS_TOKEN).pipe(
+  //     switchMap((jwt: string) => of(this.jwtHelper.decodeToken(jwt)).pipe(
+  //       map((jwt: any) => jwt.user.id)
+  //     )
+  //   ));
+  // }
+
   private doLogoutUser() {
     this.loggedIn.next(false);
     this.removeTokens();
@@ -135,6 +150,7 @@ export class AuthenticationService {
     if (window && window.localStorage) {
       this.accessToken = localStorage.getItem(this.tokenNames.ACCESS_TOKEN);
       this.refreshToken = localStorage.getItem(this.tokenNames.REFRESH_TOKEN);
+      this.userId = localStorage.getItem(this.tokenNames.USER_ID);
       this.updateLoggedInStatus();
     }
   }

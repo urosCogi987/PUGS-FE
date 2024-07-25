@@ -1,1 +1,127 @@
-<p>user-profile works!</p>
+
+@if (isLoading) {
+    <!-- Show spinner -->
+} @else {
+    <div>    
+        <p>{{email}}</p>
+        <p>{{roleName}}</p>
+        <p>{{status}}</p>
+        <mat-divider></mat-divider>
+    </div>   
+    <div>
+        <form
+            class="container p-5"
+            [formGroup]="editProfileForm"
+            (ngSubmit)="$event.preventDefault(); saveChanges()"
+        >
+        <div class="mb-3 col-3">
+            <mat-form-field>
+              <mat-label>Username</mat-label>
+              <input
+                type="text"
+                matInput
+                formControlName="username"
+                placeholder="Enter your username"
+              />
+              @if (editProfileForm.get('username')!.hasError('required')) {
+              <mat-error>Username is required</mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <div class="mb-3">
+            <mat-form-field>
+              <mat-label>Name</mat-label>
+              <input
+                type="text"
+                matInput
+                formControlName="name"
+                placeholder="Enter your Name"
+              />
+              @if (editProfileForm.get('name')!.hasError('required')) {
+              <mat-error>Name is required</mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <div class="mb-3">
+            <mat-form-field class="example-full-width">
+              <mat-label>Surname</mat-label>
+              <input
+                type="text"
+                matInput
+                formControlName="surname"
+                placeholder="Enter your surname"
+              />
+              @if (editProfileForm.get('surname')!.hasError('required')) {
+              <mat-error>Surname is required</mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <div class="mb-3">
+            <mat-form-field class="example-full-width">
+              <mat-label>Address</mat-label>
+              <input
+                type="text"
+                matInput
+                formControlName="address"
+                placeholder="Enter your address"
+              />
+              @if (editProfileForm.get('address')!.hasError('required')) {
+              <mat-error>Address is required</mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <div class="mb-3">
+            <mat-form-field class="example-full-width">
+              <mat-label>Choose a date of birth</mat-label>
+              <input
+                formControlName="dateOfBirth"
+                [max]="today"
+                matInput
+                [matDatepicker]="picker"
+              />
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+    
+              @if (editProfileForm.get('dateOfBirth')!.hasError('required')) {
+              <mat-error>Date of birth is required</mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <div class="mb-3">
+            <button
+              type="button"
+              class="btn btn-primary"
+              mat-flat-button          
+              [hidden]="isEditMode"
+              (click)="enableEditing()"    
+            >
+              Edit profile
+            </button>
+          </div>
+
+          @if (isEditMode) {
+            <div class="mb-3">
+                <button
+                  type="submit"
+                  class="btn btn-success"
+                  mat-flat-button        
+                  [hidden]="!isEditMode"      
+                  [disabled]="editProfileForm.invalid"
+                >
+                  Edit
+                </button>
+            </div>
+          }          
+          
+        </form>
+    </div>
+}

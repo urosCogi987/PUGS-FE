@@ -1,9 +1,11 @@
 import { Injectable } from "@angular/core";
-import { UserProfileResponse } from "../../models/user/userProfileResponse";
-import { map, Observable } from "rxjs";
+import { IUserProfileResponse } from "../../models/user/userProfileResponse";
+import { map, Observable, tap } from "rxjs";
 import { environment } from "../../../environments/env.const";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { AuthenticationService } from "../authentication/authentication.service";
+import { response } from "express";
+import { IUpdateUserProfileRequest } from "../../models/user/updateUserProfileRequest";
 
 
 @Injectable({
@@ -15,26 +17,47 @@ export class UserService {
         private http: HttpClient,
         private authService: AuthenticationService
     ) {}
+          
+    private getStandardOptions() : {headers: HttpHeaders}
+    {
+      return {
+        headers: new HttpHeaders({            
+          'Authorization': `Bearer ${this.authService._accessToken}`
+        })
+      };
+    }   
 
-    private getStandardOptions() : any {
-        return {
-          headers: new HttpHeaders({            
-            'Authorization': `Bearer ${this.authService._accessToken}`
-          })
-        };
-      }   
-
-    public getUserProfile(        
-    ): Observable<UserProfileResponse> {
-        const userProfileUrl = `${environment.apiUrl}/user/profile`;
-        var headers = this.getStandardOptions();
+    public getLoggedInUser(        
+    ): Observable<IUserProfileResponse> {
+        const userProfileUrl = `${environment.apiUrl}/user/profile`;        
+        var headers = this.getStandardOptions();        
+        
         return this.http
-         .get(userProfileUrl, headers)
+         .get<IUserProfileResponse>(userProfileUrl, headers)
          .pipe(
-            map((response) => {
-                console.log(response);
-              return response as unknown as UserProfileResponse; // sta je ovo???
+            tap((response) => {
+              console.log(response);
+              return response; 
             })
           );
     }
+
+    public updateUserProfile(
+      body: IUpdateUserProfileRequest           
+    ): Observable<any> {
+      var userId = this.authService._userId;
+      var test = this.authService._authToken;
+      var test2 = this.authService._accessToken;
+      const updateProfileUrl = `${environment.apiUrl}/user/${userId}`;
+      var headers = this.getStandardOptions();      
+
+      return this.http
+        .put(updateProfileUrl, body, headers)
+        .pipe(
+          tap((response) => {
+            console.log(response);
+            return response;
+          })
+        );
+    };
 }
