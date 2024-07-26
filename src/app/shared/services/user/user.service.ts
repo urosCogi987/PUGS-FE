@@ -7,6 +7,7 @@ import { AuthenticationService } from "../authentication/authentication.service"
 import { response } from "express";
 import { IUpdateUserProfileRequest } from "../../models/user/updateUserProfileRequest";
 import { IChangePasswordRequest } from "../../models/user/changePasswordRequest";
+import { IProfilePictureResponse } from "../../models/user/profilePictureResponse";
 
 
 @Injectable({
@@ -41,6 +42,37 @@ export class UserService {
               return response; 
             })
           );
+    }
+
+    public getBase64Image(      
+    ): Observable<IProfilePictureResponse> {
+      const userProfilePictureUrl = `${environment.apiUrl}/user/image`;  
+      var headers = this.getStandardOptions();   
+
+      return this.http
+        .get<IProfilePictureResponse>(userProfilePictureUrl, headers)
+        .pipe(
+          tap((response) => {
+            console.log(response);
+            return response;
+          })
+        )
+    }
+
+    public uploadImage(
+      formData: any      
+    ): Observable<any> {
+      const uploadImageUrl = `${environment.apiUrl}/user/image`;
+      var headers = this.getStandardOptions();  
+
+      return this.http
+        .post(uploadImageUrl, formData, headers)
+        .pipe(
+          tap((response) => {
+            console.log(response);
+            return response;
+          })
+        );
     }
 
     public updateUserProfile(

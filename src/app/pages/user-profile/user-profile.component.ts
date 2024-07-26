@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '../../shared/services/user/user.service';
-import { Observable, Subject, takeUntil, tap } from 'rxjs';
+import { map, Observable, Subject, takeUntil, tap } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
 import { ApplicationRoutes } from '../../const/application-routes';
 import { IUserProfileResponse } from '../../shared/models/user/userProfileResponse';
@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { repeatPasswordValidator } from './repeatPassword';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 @Component({
   selector: 'user-profile',
@@ -29,7 +30,8 @@ import { repeatPasswordValidator } from './repeatPassword';
     FormsModule,    
     MatInputModule,
     MatSelectModule,
-    MatButtonModule    
+    MatButtonModule,
+    MatToolbarModule    
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './user-profile.component.html',
@@ -39,7 +41,13 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   protected appRoutes = ApplicationRoutes;
   private ngUnsubscribe: Subject<void> = new Subject<void>;
   protected editProfileForm!: FormGroup;
-  protected changePasswordForm!: FormGroup;
+  protected changePasswordForm!: FormGroup; 
+
+  protected imageSrc!: string;
+  protected selectedFile?: File;
+  protected selectedFileName?: string;
+  protected imageUrl: string | ArrayBuffer | null = null;
+
   protected isLoading: boolean = false;
   protected today = new Date();
 
@@ -59,6 +67,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {    
     this.getUserProfile().subscribe();     
+    this.getUserProfilePicture().subscribe();    
     this.isEditMode = false;
     this.isChangingPasswordMode = false;
   }
@@ -108,7 +117,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       },
       complete: () => {
         this.isChangingPasswordMode = false;                                 
-        this.router.navigate([`${this.appRoutes.Dashboard}`]);
+        this.router.navigate([`${this.appRoutes.Profile}`]);
         this.resetForm();
       },
     });
@@ -122,11 +131,48 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.isEditMode = true;
   }
 
+  protected changePicture() {
+    if (!this.selectedFile) {      
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', this.selectedFile, this.selectedFile.name);
+
+    this.userService.uploadImage(formData).subscribe({
+      next: (data: any) => {
+        console.log(data);
+      },
+      error: (err: Error) => {
+        console.log(err);
+      },
+      complete: () => {
+        this.isChangingPasswordMode = false;                                 
+        this.router.navigate([`${this.appRoutes.Profile}`]);
+        this.resetForm();
+      },
+    });
+  }
+
+  protected onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      this.selectedFile = input.files[0];      
+    }
+  }
+
   private resetForm() {
     this.changePasswordForm.reset(); 
-    this.changePasswordForm.markAsPristine(); 
-    this.changePasswordForm.markAsUntouched();
-    this.changePasswordForm.updateValueAndValidity();
+    this.changePasswordForm.clearValidators();
+  }
+  
+  private getUserProfilePicture(): Observable<any> {
+    return this.userService.getBase64Image().pipe(
+      takeUntil(this.ngUnsubscribe),
+      map((res) => {
+        this.imageSrc = `data:${res.contentType};base64,${res.base64}`;        
+      })
+    )
   }
   
   private getUserProfile(): Observable<IUserProfileResponse> {
@@ -165,4 +211,5 @@ export class UserProfileComponent implements OnInit, OnDestroy {
        })
     );
   }
+
 }

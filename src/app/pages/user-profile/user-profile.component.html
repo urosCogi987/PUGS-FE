@@ -2,11 +2,35 @@
 @if (isLoading) {
     <!-- Show spinner -->
 } @else {
-    <div class="container p-5">    
-        <p>Email: {{email}}</p>
-        <p>Role: {{roleName}}</p>
-        <p>Status: {{status}}</p>        
-    </div>   
+    <div class="row">
+      <div class="container p-5 col-sm-6">
+
+        <div class="mb-3">        
+          <img *ngIf="imageSrc" [src]="imageSrc" alt="Profile picture">
+        </div>
+        
+        <div class="mb-3">
+        <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+      </div>
+        <div class="mb-3">
+          <button
+            type="button"
+            class="btn btn-primary"
+            mat-flat-button                      
+            (click)="changePicture()"    
+          >
+            Change picture
+          </button>
+        </div>
+
+      </div>
+      
+      <div class="container p-5 col-sm-6">
+          <p>Email: {{email}}</p>
+          <p>Role: {{roleName}}</p>
+          <p>Status: {{status}}</p>        
+      </div>   
+  </div>
 
     <mat-divider></mat-divider>
 
