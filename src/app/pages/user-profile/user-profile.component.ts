@@ -13,7 +13,7 @@ import { CommonModule, NgIf } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import { AuthenticationService } from '../../shared/services/authentication/authentication.service';
+import { repeatPasswordValidator } from './repeatPassword';
 
 @Component({
   selector: 'user-profile',
@@ -39,28 +39,28 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   protected appRoutes = ApplicationRoutes;
   private ngUnsubscribe: Subject<void> = new Subject<void>;
   protected editProfileForm!: FormGroup;
+  protected changePasswordForm!: FormGroup;
   protected isLoading: boolean = false;
   protected today = new Date();
+
   protected isEditMode : boolean = false;
+  protected isChangingPasswordMode : boolean = false;
   
   protected email!: string;
   protected roleName!: string;
-  protected status!: string;
-
-  public currentProfile: IUserProfileResponse | undefined;
+  protected status!: string;  
 
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private userService: UserService,
-    private authenticationService: AuthenticationService
+    private userService: UserService    
   ) { }
+    
 
-
-  ngOnInit(): void {
-    this.getUserProfile().subscribe(() => console.log('2'));
-    console.log('1');
-
+  ngOnInit(): void {    
+    this.getUserProfile().subscribe();     
+    this.isEditMode = false;
+    this.isChangingPasswordMode = false;
   }
 
   ngOnDestroy(): void {
@@ -90,26 +90,73 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     });
   }
 
+  protected changePassword() {
+    if (this.changePasswordForm.invalid) {
+      return;
+    }
+
+    const changePasswordData = {
+      ...this.changePasswordForm.value,
+    };
+      
+    this.userService.changePassword(changePasswordData).subscribe({
+      next: (data: any) => {
+        console.log(data);
+      },
+      error: (err: Error) => {
+        console.log(err);
+      },
+      complete: () => {
+        this.isChangingPasswordMode = false;                                 
+        this.router.navigate([`${this.appRoutes.Dashboard}`]);
+        this.resetForm();
+      },
+    });
+  }
+
+  protected enableChangePassword() {
+    this.isChangingPasswordMode = true;
+  }
+  
   protected enableEditing() {
     this.isEditMode = true;
   }
 
+  private resetForm() {
+    this.changePasswordForm.reset(); 
+    this.changePasswordForm.markAsPristine(); 
+    this.changePasswordForm.markAsUntouched();
+    this.changePasswordForm.updateValueAndValidity();
+  }
+  
   private getUserProfile(): Observable<IUserProfileResponse> {
     this.isLoading = true;
     return this.userService.getLoggedInUser().pipe(
       takeUntil(this.ngUnsubscribe),
-      tap((res) => { 
-        this.currentProfile = res;
+      tap((res) => {         
         this.editProfileForm = this.formBuilder.group(
           {
             username: new FormControl(res.username, Validators.required),
             name: new FormControl(res.name, Validators.required),
             surname: new FormControl(res.surname, Validators.required),
             address: new FormControl(res.address, Validators.required),
-            dateOfBirth: new FormControl(res.dateOfBirth, [Validators.required]),
+            dateOfBirth: new FormControl(res.dateOfBirth, Validators.required),
           }
         )
         
+        this.changePasswordForm = this.formBuilder.group(
+          {
+            password: new FormControl('', [
+              Validators.required,
+              Validators.minLength(8),
+              Validators.maxLength(50),
+            ]),
+            repeatPassword: new FormControl('', Validators.required),
+            oldPassword: new FormControl('', Validators.required)
+          },
+          { validators: repeatPasswordValidator }
+        )
+
         this.email = res.email;
         this.roleName = res.roleNames[0];
         this.status = res.status;

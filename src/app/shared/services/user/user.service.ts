@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { AuthenticationService } from "../authentication/authentication.service";
 import { response } from "express";
 import { IUpdateUserProfileRequest } from "../../models/user/updateUserProfileRequest";
+import { IChangePasswordRequest } from "../../models/user/changePasswordRequest";
 
 
 @Injectable({
@@ -45,9 +46,7 @@ export class UserService {
     public updateUserProfile(
       body: IUpdateUserProfileRequest           
     ): Observable<any> {
-      var userId = this.authService._userId;
-      var test = this.authService._authToken;
-      var test2 = this.authService._accessToken;
+      var userId = this.authService._userId;      
       const updateProfileUrl = `${environment.apiUrl}/user/${userId}`;
       var headers = this.getStandardOptions();      
 
@@ -60,4 +59,21 @@ export class UserService {
           })
         );
     };
+
+    public changePassword(
+      body: IChangePasswordRequest      
+    ): Observable<any> {
+      var userId = this.authService._userId;      
+      const changePasswordUrl = `${environment.apiUrl}/user/${userId}/password`;
+      var headers = this.getStandardOptions(); 
+
+      return this.http
+        .put(changePasswordUrl, body, headers)
+        .pipe(
+          tap((response) => {
+            console.log(response);
+            return response;
+          })
+        );
+    }
 }
