@@ -38,6 +38,28 @@ export const routes: Routes = [
       },
     },
     {
+      path: `${ApplicationRoutes.Profile}`,
+      loadComponent: () =>
+        import('./pages/user-profile/user-profile.component').then(
+          (c) => c.UserProfileComponent // puca kada ima constructor ... ?
+        ),
+        canActivate: [isLoggedInGuard],
+        data: {
+          showHeader: true,
+        },
+    },
+    {
+      path: `${ApplicationRoutes.VerifyEmail}/:token`,
+      loadComponent: () =>
+        import('./pages/user-profile/user-profile.component').then(
+          (c) => c.UserProfileComponent // puca kada ima constructor ... ?
+        ),
+        canActivate: [isLoggedInGuard],
+        data: {
+          showHeader: true,
+        },
+    },
+    {
       path: '**',
       redirectTo: '',
       pathMatch: 'full',

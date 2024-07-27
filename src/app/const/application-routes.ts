@@ -3,4 +3,6 @@ export const ApplicationRoutes = {
     Login: 'login',
     Registration: 'registration',
     Dashboard: 'dashboard',
+    Profile: 'profile',
+    VerifyEmail: 'verify-email',
   };
