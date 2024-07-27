@@ -1,10 +1,9 @@
 import { Injectable } from "@angular/core";
 import { IUserProfileResponse } from "../../models/user/userProfileResponse";
-import { map, Observable, tap } from "rxjs";
+import { Observable, tap } from "rxjs";
 import { environment } from "../../../environments/env.const";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { AuthenticationService } from "../authentication/authentication.service";
-import { response } from "express";
 import { IUpdateUserProfileRequest } from "../../models/user/updateUserProfileRequest";
 import { IChangePasswordRequest } from "../../models/user/changePasswordRequest";
 import { IProfilePictureResponse } from "../../models/user/profilePictureResponse";
@@ -31,7 +30,7 @@ export class UserService {
 
     public getLoggedInUser(        
     ): Observable<IUserProfileResponse> {
-        const userProfileUrl = `${environment.apiUrl}/user/profile`;        
+        const userProfileUrl = `${environment.apiBase}/${environment.apiUser}/profile`;        
         var headers = this.getStandardOptions();        
         
         return this.http
@@ -46,7 +45,7 @@ export class UserService {
 
     public getBase64Image(      
     ): Observable<IProfilePictureResponse> {
-      const userProfilePictureUrl = `${environment.apiUrl}/user/image`;  
+      const userProfilePictureUrl = `${environment.apiBase}/${environment.apiUser}/image`;  
       var headers = this.getStandardOptions();   
 
       return this.http
@@ -62,7 +61,7 @@ export class UserService {
     public uploadImage(
       formData: any      
     ): Observable<any> {
-      const uploadImageUrl = `${environment.apiUrl}/user/image`;
+      const uploadImageUrl = `${environment.apiBase}/${environment.apiUser}/image`;
       var headers = this.getStandardOptions();  
 
       return this.http
@@ -77,9 +76,8 @@ export class UserService {
 
     public updateUserProfile(
       body: IUpdateUserProfileRequest           
-    ): Observable<any> {
-      var userId = this.authService._userId;      
-      const updateProfileUrl = `${environment.apiUrl}/user/${userId}`;
+    ): Observable<any> {        
+      const updateProfileUrl = `${environment.apiBase}/${environment.apiUser}/user`;
       var headers = this.getStandardOptions();      
 
       return this.http
@@ -94,9 +92,8 @@ export class UserService {
 
     public changePassword(
       body: IChangePasswordRequest      
-    ): Observable<any> {
-      var userId = this.authService._userId;      
-      const changePasswordUrl = `${environment.apiUrl}/user/${userId}/password`;
+    ): Observable<any> {          
+      const changePasswordUrl = `${environment.apiBase}/${environment.apiUser}/password`;
       var headers = this.getStandardOptions(); 
 
       return this.http

@@ -19,8 +19,7 @@ export class AuthenticationService {
   private _token$: Observable<void> | null = null;
   private readonly tokenNames = TokenNames;
   private accessToken?: string | null;
-  private refreshToken?: string | null;
-  private userId?: string | null;
+  private refreshToken?: string | null;  
 
   protected loggedUser?: string | null;
 
@@ -58,19 +57,13 @@ export class AuthenticationService {
 
   public get _accessToken(): string {
     return this.accessToken || '';
-  }
-
-  public get _userId(): string {
-    return this.userId || '';
-  }
+  }  
 
   public removeTokens() {
     this.accessToken = null;
-    this.refreshToken = null;
-    this.userId = null;
+    this.refreshToken = null;    
     localStorage.removeItem(this.tokenNames.ACCESS_TOKEN);
-    localStorage.removeItem(this.tokenNames.REFRESH_TOKEN);
-    localStorage.removeItem(this.tokenNames.USER_ID);
+    localStorage.removeItem(this.tokenNames.REFRESH_TOKEN);    
   }
 
   public hasToken(): boolean {
@@ -83,8 +76,8 @@ export class AuthenticationService {
 
   public registerUser(
     data: RegistrationResponse
-  ): Observable<RegistrationResponse> {
-    const registerUrl = `${environment.apiBaseUrl}/register`;
+  ): Observable<RegistrationResponse> {    
+    const registerUrl = `${environment.apiBase}/${environment.apiBaseAuthentication}/register`;
     return this.http
       .post(registerUrl, {
         username: data.username,
@@ -105,7 +98,7 @@ export class AuthenticationService {
   }
 
   public loginUser(data: LoginResponse): Observable<boolean> {
-    const loginURL = `${environment.apiBaseUrl}/login`;
+    const loginURL = `${environment.apiBase}/${environment.apiBaseAuthentication}/login`;
     return this.http.post<any>(loginURL, data).pipe(
       tap((tokens) => {
         this.loggedIn.next(true);
@@ -116,9 +109,12 @@ export class AuthenticationService {
 
   public refreshAccessToken(): Observable<TokenResponse> {
     return this.http
-      .post<TokenResponse>(`${environment.apiBaseUrl}/refresh`, {
-        refreshToken: this._authToken,
-      })
+      .post<TokenResponse>(
+        `${environment.apiBase}/${environment.apiBaseAuthentication}/refresh`,
+        {
+          refreshToken: this._authToken,
+        }
+      )
       .pipe(
         tap((response) => {
           this.storeTokens(response);
@@ -129,16 +125,7 @@ export class AuthenticationService {
   public logoutUser(): void {
     this.doLogoutUser();
   }
-
-  // getUserId(): Observable<number>{
-  //   var userId = this.tokenNames.ACCESS_TOKEN;
-  //   return localStorage.getItem(this.tokenNames.ACCESS_TOKEN).pipe(
-  //     switchMap((jwt: string) => of(this.jwtHelper.decodeToken(jwt)).pipe(
-  //       map((jwt: any) => jwt.user.id)
-  //     )
-  //   ));
-  // }
-
+  
   private doLogoutUser() {
     this.loggedIn.next(false);
     this.removeTokens();
@@ -149,8 +136,7 @@ export class AuthenticationService {
     const window = this.document.defaultView;
     if (window && window.localStorage) {
       this.accessToken = localStorage.getItem(this.tokenNames.ACCESS_TOKEN);
-      this.refreshToken = localStorage.getItem(this.tokenNames.REFRESH_TOKEN);
-      this.userId = localStorage.getItem(this.tokenNames.USER_ID);
+      this.refreshToken = localStorage.getItem(this.tokenNames.REFRESH_TOKEN);      
       this.updateLoggedInStatus();
     }
   }
@@ -161,10 +147,8 @@ export class AuthenticationService {
 
   private storeTokens(tokens: any) {
     this.accessToken = tokens.accessToken;
-    this.refreshToken = tokens.refreshToken;
-    this.userId = tokens.userId;
+    this.refreshToken = tokens.refreshToken;    
     localStorage.setItem(this.tokenNames.ACCESS_TOKEN, tokens.accessToken);
-    localStorage.setItem(this.tokenNames.REFRESH_TOKEN, tokens.refreshToken);
-    localStorage.setItem(this.tokenNames.USER_ID, tokens.userId);
+    localStorage.setItem(this.tokenNames.REFRESH_TOKEN, tokens.refreshToken);    
   }  
 }
