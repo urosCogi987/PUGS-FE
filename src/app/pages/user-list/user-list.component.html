@@ -1,0 +1,41 @@
+
+
+<table class="table">
+  
+    <th>Username</th>
+    <th>Email</th>    
+    <th>Role</th>
+    <th>Status</th>
+    <th>Action</th>
+    
+    @for (user of users; track user.id) {
+        <tr>
+            <td>{{user.username}}</td>
+            <td>{{user.email}}</td>            
+            <td>{{user.roleNames[0]}}</td>            
+            @if (user.status === "Active") {
+                <td class="background-color:green">{{user.status}}</td>            
+            }
+            @else if (user.status == "InProcess") {
+                <td>{{user.status}}</td>
+            }
+            @else {
+                <td class="background-color:green">{{user.status}}</td>
+            }
+            <td><a mat-button [routerLink]="'/' + appRoutes.UesrDetails">Login</a></td>
+        </tr>
+}
+    
+</table>    
+
+<!-- na yt tutorial pogledaj, bookmarkovan -->
+<!-- <div>
+    @for (user of users; track user.id) {
+        <div>
+            <div>
+                <i aria-hidden="true">{{user.id}}</i>
+            </div>
+        </div>
+    }
+</div> -->
+

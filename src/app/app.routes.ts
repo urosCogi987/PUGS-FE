@@ -41,7 +41,7 @@ export const routes: Routes = [
       path: `${ApplicationRoutes.Profile}`,
       loadComponent: () =>
         import('./pages/user-profile/user-profile.component').then(
-          (c) => c.UserProfileComponent // puca kada ima constructor ... ?
+          (c) => c.UserProfileComponent 
         ),
         canActivate: [isLoggedInGuard],
         data: {
@@ -49,10 +49,21 @@ export const routes: Routes = [
         },
     },
     {
+      path: `${ApplicationRoutes.UserList}`,
+      loadComponent: () =>
+        import('./pages/user-list/user-list.component').then(
+          (c) => c.UserListComponent
+        ),
+        canActivate: [isLoggedInGuard],
+        data: {
+          showHeader: true,
+        }
+    },
+    {
       path: `${ApplicationRoutes.VerifyEmail}/:token`,
       loadComponent: () =>
         import('./pages/user-profile/user-profile.component').then(
-          (c) => c.UserProfileComponent // puca kada ima constructor ... ?
+          (c) => c.UserProfileComponent 
         ),
         canActivate: [isLoggedInGuard],
         data: {

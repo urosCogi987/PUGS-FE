@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, finalize, map, Observable, share, tap } from 'rxjs';
 import { TokenNames } from '../../../const/token.const'; 
 import { environment } from '../../../environments/env.const'; 
-import { LoginResponse } from '../../models/loginUser';
-import { RegistrationResponse } from '../../models/registerUser'; 
+import { LoginRequest } from '../../models/user/loginUserRequest';
+import { RegistrationResponse } from '../../models/user/registerUser'; 
 import { TokenResponse } from '../../models/tokenResponse';
 import { ApplicationRoutes } from '../../../const/application-routes';
 import { DOCUMENT } from '@angular/common';
@@ -75,7 +75,7 @@ export class AuthenticationService {
   }
 
   public registerUser(
-    data: RegistrationResponse
+    data: RegistrationResponse // lol
   ): Observable<RegistrationResponse> {    
     const registerUrl = `${environment.apiBase}/${environment.apiBaseAuthentication}/register`;
     return this.http
@@ -97,7 +97,7 @@ export class AuthenticationService {
       );
   }
 
-  public loginUser(data: LoginResponse): Observable<boolean> {
+  public loginUser(data: LoginRequest): Observable<boolean> {
     const loginURL = `${environment.apiBase}/${environment.apiBaseAuthentication}/login`;
     return this.http.post<any>(loginURL, data).pipe(
       tap((tokens) => {

@@ -1,18 +1,33 @@
 <p>dashboard works!</p>
 
 <mat-grid-list cols="2" rowHeight="3:1" [gutterSize]="'100px'">
-    <mat-grid-tile style="background-color: gray;"><a mat-button [routerLink]="'/' + appRoutes.Profile">Login</a></mat-grid-tile>
+
+    <mat-grid-tile>
+        <mat-card style="background-color: gray;">
+            <mat-card-content>User list</mat-card-content>
+            <mat-card-actions>
+                <a 
+                    mat-button
+                    [routerLink]="'/' + appRoutes.UserList"
+                >User list</a>
+            </mat-card-actions>
+        </mat-card>
+    </mat-grid-tile>
+
+    <!-- only for admin, TODO: logic for getCurrentUser -> and putting it in header component also -->
     <mat-grid-tile>
         <mat-card style="background-color: gray;">
             <mat-card-content>View your profile</mat-card-content>
-            <mat-card-actions><a mat-button [routerLink]="'/' + appRoutes.Profile">Login</a></mat-card-actions>
+            <mat-card-actions>
+                <a 
+                    mat-button
+                    [routerLink]="'/' + appRoutes.Profile"
+                >Profile</a>
+            </mat-card-actions>
         </mat-card>
     </mat-grid-tile>
+
     <mat-grid-tile style="background-color: gray;">3</mat-grid-tile>
+
     <mat-grid-tile style="background-color: gray;">4</mat-grid-tile>
 </mat-grid-list>
-
-
-<ul>
-    <li><a mat-button [routerLink]="'/' + appRoutes.Profile">Login</a></li>
-</ul>

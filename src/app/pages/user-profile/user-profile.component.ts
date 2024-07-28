@@ -15,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { repeatPasswordValidator } from './repeatPassword';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { IProfilePictureResponse } from '../../shared/models/user/profilePictureResponse';
 
 @Component({
   selector: 'user-profile',
@@ -166,10 +167,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.changePasswordForm.clearValidators();
   }
   
-  private getUserProfilePicture(): Observable<any> {
+  private getUserProfilePicture(): Observable<IProfilePictureResponse> {
     return this.userService.getBase64Image().pipe(
       takeUntil(this.ngUnsubscribe),
-      map((res) => {
+      tap((res) => {
         this.imageSrc = `data:${res.contentType};base64,${res.base64}`;        
       })
     )

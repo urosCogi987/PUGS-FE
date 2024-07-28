@@ -7,7 +7,7 @@ import { AuthenticationService } from "../authentication/authentication.service"
 import { IUpdateUserProfileRequest } from "../../models/user/updateUserProfileRequest";
 import { IChangePasswordRequest } from "../../models/user/changePasswordRequest";
 import { IProfilePictureResponse } from "../../models/user/profilePictureResponse";
-
+import { IUserListItem } from "../../models/user/userListItemResponse";
 
 @Injectable({
     providedIn: 'root',
@@ -30,7 +30,7 @@ export class UserService {
 
     public getLoggedInUser(        
     ): Observable<IUserProfileResponse> {
-        const userProfileUrl = `${environment.apiBase}/${environment.apiUser}/profile`;        
+        const userProfileUrl = `${environment.apiBase}/${environment.apiUser}/current`;        
         var headers = this.getStandardOptions();        
         
         return this.http
@@ -98,6 +98,21 @@ export class UserService {
 
       return this.http
         .put(changePasswordUrl, body, headers)
+        .pipe(
+          tap((response) => {
+            console.log(response);
+            return response;
+          })
+        );
+    }
+
+    public userList(      
+    ) : Observable<IUserListItem[]> {
+      const userListUrl = `${environment.apiBase}/${environment.apiUser}`
+      var headers = this.getStandardOptions();
+
+      return this.http
+        .get<IUserListItem[]>(userListUrl, headers)
         .pipe(
           tap((response) => {
             console.log(response);
