@@ -7,7 +7,9 @@ import { AuthenticationService } from "../authentication/authentication.service"
 import { IUpdateUserProfileRequest } from "../../models/user/updateUserProfileRequest";
 import { IChangePasswordRequest } from "../../models/user/changePasswordRequest";
 import { IProfilePictureResponse } from "../../models/user/profilePictureResponse";
-import { IUserListItem } from "../../models/user/userListItemResponse";
+import { IUserListItemResponse } from "../../models/user/userListItemResponse";
+import { IUserDetailsResponse } from "../../models/user/userDetailsResponse";
+import { response } from "express";
 
 @Injectable({
     providedIn: 'root',
@@ -43,9 +45,15 @@ export class UserService {
           );
     }
 
-    public getBase64Image(      
+    public getBase64Image(     
+      id: string | null 
     ): Observable<IProfilePictureResponse> {
-      const userProfilePictureUrl = `${environment.apiBase}/${environment.apiUser}/image`;  
+      let userProfilePictureUrl = `${environment.apiBase}/${environment.apiUser}/image`; 
+      if (id)
+      {
+
+      }
+      // const userProfilePictureUrl = `${environment.apiBase}/${environment.apiUser}/image`;  
       var headers = this.getStandardOptions();   
 
       return this.http
@@ -107,12 +115,28 @@ export class UserService {
     }
 
     public userList(      
-    ) : Observable<IUserListItem[]> {
-      const userListUrl = `${environment.apiBase}/${environment.apiUser}`
+    ) : Observable<IUserListItemResponse[]> {
+      const userListUrl = `${environment.apiBase}/${environment.apiUser}`;
       var headers = this.getStandardOptions();
 
       return this.http
-        .get<IUserListItem[]>(userListUrl, headers)
+        .get<IUserListItemResponse[]>(userListUrl, headers)
+        .pipe(
+          tap((response) => {
+            console.log(response);
+            return response;
+          })
+        );
+    }
+
+    public userDetails(
+      id: string
+    ) : Observable<IUserDetailsResponse> {
+      const userDetailsUrl = `${environment.apiBase}/${environment.apiUser}/${id}`;
+      var headers = this.getStandardOptions();
+
+      return this.http
+        .get<IUserDetailsResponse>(userDetailsUrl, headers)
         .pipe(
           tap((response) => {
             console.log(response);

@@ -168,7 +168,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
   
   private getUserProfilePicture(): Observable<IProfilePictureResponse> {
-    return this.userService.getBase64Image().pipe(
+    return this.userService.getBase64Image(null).pipe(
       takeUntil(this.ngUnsubscribe),
       tap((res) => {
         this.imageSrc = `data:${res.contentType};base64,${res.base64}`;        

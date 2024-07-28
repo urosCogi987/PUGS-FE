@@ -3,7 +3,7 @@ import { UserService } from '../../shared/services/user/user.service';
 import { Router, RouterModule } from '@angular/router';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { MatTableModule } from '@angular/material/table';
-import { IUserListItem } from '../../shared/models/user/userListItemResponse';
+import { IUserListItemResponse } from '../../shared/models/user/userListItemResponse';
 import { ApplicationRoutes } from '../../const/application-routes';
 
 @Component({
@@ -18,7 +18,7 @@ import { ApplicationRoutes } from '../../const/application-routes';
 export class UserListComponent implements OnInit, OnDestroy {
   protected appRoutes = ApplicationRoutes; 
   private ngUnsubscribe: Subject<void> = new Subject<void>;
-  protected users!: IUserListItem[];
+  protected users!: IUserListItemResponse[];
 
   constructor(
     private userService: UserService,

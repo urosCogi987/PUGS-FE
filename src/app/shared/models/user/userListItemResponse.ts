@@ -1,4 +1,4 @@
-export interface IUserListItem {
+export interface IUserListItemResponse {
     id: string, 
     username: string,
     email: string,    

@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { ApplicationRoutes } from './const/application-routes'; 
 import { isLoggedInGuard } from './shared/guards/is-logged-in.guard';
 import { isNotLoggedInGuard } from './shared/guards/is-not-logged-in.guard';
+import { UserDetailsComponent } from './pages/user-details/user-details.component';
 
 export const routes: Routes = [
     {
@@ -58,6 +59,17 @@ export const routes: Routes = [
         data: {
           showHeader: true,
         }
+    },
+    {
+      path: `${ApplicationRoutes.UesrDetails}/:id`,
+      loadComponent: () =>
+        import('./pages/user-details/user-details.component').then(
+          (c) => UserDetailsComponent
+        ),
+        canActivate: [isLoggedInGuard],
+        data: {
+          showHeader: true,
+        },
     },
     {
       path: `${ApplicationRoutes.VerifyEmail}/:token`,
