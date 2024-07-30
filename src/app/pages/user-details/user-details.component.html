@@ -1,8 +1,15 @@
-<p>username: {{user.username}}</p>
-<p>email: {{user.email}}</p>
-<p>name: {{user.name}}</p>
-<p>surname: {{user.surname}}</p>
-<p>date of birth: {{user.dateOfBirth}}</p>
-<p>role: {{user.roleNames[0]}}</p>
-<p>address: {{user.address}}</p>
-<p>status: {{user.status}}</p>
+
+<div class="mb-3">        
+    <img  [src]="imageSrc" alt="Profile picture">
+</div>
+
+<div>
+    <p>username: {{user.username}}</p>
+    <p>email: {{user.email}}</p>
+    <p>name: {{user.name}}</p>
+    <p>surname: {{user.surname}}</p>
+    <p>date of birth: {{user.dateOfBirth}}</p>
+    <p>role: {{user.roleNames[0]}}</p>
+    <p>address: {{user.address}}</p>
+    <p>status: {{user.status}}</p>
+</div>

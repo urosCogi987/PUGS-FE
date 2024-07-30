@@ -66,9 +66,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   ) { }
     
 
-  ngOnInit(): void {    
-    // this.getUserProfile().subscribe();     
-    // this.getUserProfilePicture().subscribe();    
+  ngOnInit(): void {        
     this.isLoading = true;
     forkJoin([this.getUserProfile(), this.getUserProfilePicture()]).subscribe(() => {
       this.isLoading = false; // merge map i map

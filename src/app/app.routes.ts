@@ -3,6 +3,7 @@ import { ApplicationRoutes } from './const/application-routes';
 import { isLoggedInGuard } from './shared/guards/is-logged-in.guard';
 import { isNotLoggedInGuard } from './shared/guards/is-not-logged-in.guard';
 import { UserDetailsComponent } from './pages/user-details/user-details.component';
+import { CreateDriveComponent } from './pages/create-drive/create-drive.component';
 
 export const routes: Routes = [
     {
@@ -65,6 +66,17 @@ export const routes: Routes = [
       loadComponent: () =>
         import('./pages/user-details/user-details.component').then(
           (c) => UserDetailsComponent
+        ),
+        canActivate: [isLoggedInGuard],
+        data: {
+          showHeader: true,
+        },
+    },
+    {
+      path: `${ApplicationRoutes.CreateDrive}`,
+      loadComponent: () =>
+        import('./pages/create-drive/create-drive.component').then(
+          (c) => CreateDriveComponent
         ),
         canActivate: [isLoggedInGuard],
         data: {

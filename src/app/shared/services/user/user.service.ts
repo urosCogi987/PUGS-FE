@@ -51,9 +51,9 @@ export class UserService {
       let userProfilePictureUrl = `${environment.apiBase}/${environment.apiUser}/image`; 
       if (id)
       {
-
+        userProfilePictureUrl = `${environment.apiBase}/${environment.apiUser}/image/${id}`
       }
-      // const userProfilePictureUrl = `${environment.apiBase}/${environment.apiUser}/image`;  
+            
       var headers = this.getStandardOptions();   
 
       return this.http

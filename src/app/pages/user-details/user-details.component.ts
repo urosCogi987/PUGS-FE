@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '../../shared/services/user/user.service';
-import { Observable, Subject, takeUntil, tap } from 'rxjs';
+import { forkJoin, Observable, Subject, takeUntil, tap } from 'rxjs';
 import { IUserDetailsResponse } from '../../shared/models/user/userDetailsResponse';
 import { ActivatedRoute } from '@angular/router';
 import { IProfilePictureResponse } from '../../shared/models/user/profilePictureResponse';
@@ -28,7 +28,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {    
     const id = this.route.snapshot.paramMap.get('id');
-    this.getUserDetails(id!).subscribe();        
+    forkJoin([this.getUserDetails(id!), this.getUserProfilePicture(id!)]).subscribe();    
   }
 
   private getUserDetails(id: string): Observable<IUserDetailsResponse> {
