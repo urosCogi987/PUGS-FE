@@ -6,5 +6,6 @@ export const ApplicationRoutes = {
     Profile: 'profile',
     UserList: 'user-list',
     UesrDetails: 'user-details',
-    VerifyEmail: 'verify-email',
+    CreateDrive: 'create-drive',
+    VerifyEmail: 'verify-email'
   };
