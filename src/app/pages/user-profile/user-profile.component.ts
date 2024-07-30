@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '../../shared/services/user/user.service';
-import { map, Observable, Subject, takeUntil, tap } from 'rxjs';
+import { forkJoin, map, Observable, Subject, takeUntil, tap } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
 import { ApplicationRoutes } from '../../const/application-routes';
 import { IUserProfileResponse } from '../../shared/models/user/userProfileResponse';
@@ -15,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { repeatPasswordValidator } from './repeatPassword';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { IProfilePictureResponse } from '../../shared/models/user/profilePictureResponse';
 
 @Component({
   selector: 'user-profile',
@@ -66,14 +67,19 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     
 
   ngOnInit(): void {    
-    this.getUserProfile().subscribe();     
-    this.getUserProfilePicture().subscribe();    
+    // this.getUserProfile().subscribe();     
+    // this.getUserProfilePicture().subscribe();    
+    this.isLoading = true;
+    forkJoin([this.getUserProfile(), this.getUserProfilePicture()]).subscribe(() => {
+      this.isLoading = false; // merge map i map
+    });
     this.isEditMode = false;
     this.isChangingPasswordMode = false;
   }
 
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   protected saveChanges() {
@@ -166,17 +172,16 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.changePasswordForm.clearValidators();
   }
   
-  private getUserProfilePicture(): Observable<any> {
-    return this.userService.getBase64Image().pipe(
+  private getUserProfilePicture(): Observable<IProfilePictureResponse> {
+    return this.userService.getBase64Image(null).pipe(
       takeUntil(this.ngUnsubscribe),
-      map((res) => {
+      tap((res) => {
         this.imageSrc = `data:${res.contentType};base64,${res.base64}`;        
       })
     )
   }
   
-  private getUserProfile(): Observable<IUserProfileResponse> {
-    this.isLoading = true;
+  private getUserProfile(): Observable<IUserProfileResponse> {    
     return this.userService.getLoggedInUser().pipe(
       takeUntil(this.ngUnsubscribe),
       tap((res) => {         
@@ -205,9 +210,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
         this.email = res.email;
         this.roleName = res.roleNames[0];
-        this.status = res.status;
-
-        this.isLoading = false;
+        this.status = res.status;        
        })
     );
   }

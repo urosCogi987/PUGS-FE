@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { ApplicationRoutes } from './const/application-routes'; 
 import { isLoggedInGuard } from './shared/guards/is-logged-in.guard';
 import { isNotLoggedInGuard } from './shared/guards/is-not-logged-in.guard';
+import { UserDetailsComponent } from './pages/user-details/user-details.component';
 
 export const routes: Routes = [
     {
@@ -41,7 +42,29 @@ export const routes: Routes = [
       path: `${ApplicationRoutes.Profile}`,
       loadComponent: () =>
         import('./pages/user-profile/user-profile.component').then(
-          (c) => c.UserProfileComponent // puca kada ima constructor ... ?
+          (c) => c.UserProfileComponent 
+        ),
+        canActivate: [isLoggedInGuard],
+        data: {
+          showHeader: true,
+        },
+    },
+    {
+      path: `${ApplicationRoutes.UserList}`,
+      loadComponent: () =>
+        import('./pages/user-list/user-list.component').then(
+          (c) => c.UserListComponent
+        ),
+        canActivate: [isLoggedInGuard],
+        data: {
+          showHeader: true,
+        }
+    },
+    {
+      path: `${ApplicationRoutes.UesrDetails}/:id`,
+      loadComponent: () =>
+        import('./pages/user-details/user-details.component').then(
+          (c) => UserDetailsComponent
         ),
         canActivate: [isLoggedInGuard],
         data: {
@@ -52,7 +75,7 @@ export const routes: Routes = [
       path: `${ApplicationRoutes.VerifyEmail}/:token`,
       loadComponent: () =>
         import('./pages/user-profile/user-profile.component').then(
-          (c) => c.UserProfileComponent // puca kada ima constructor ... ?
+          (c) => c.UserProfileComponent 
         ),
         canActivate: [isLoggedInGuard],
         data: {

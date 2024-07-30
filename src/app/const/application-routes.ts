@@ -4,5 +4,8 @@ export const ApplicationRoutes = {
     Registration: 'registration',
     Dashboard: 'dashboard',
     Profile: 'profile',
-    VerifyEmail: 'verify-email',
+    UserList: 'user-list',
+    UesrDetails: 'user-details',
+    CreateDrive: 'create-drive',
+    VerifyEmail: 'verify-email'
   };
