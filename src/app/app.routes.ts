@@ -84,12 +84,12 @@ export const routes: Routes = [
         },
     },
     {
-      path: `${ApplicationRoutes.VerifyEmail}/:token`,
+      path: `${ApplicationRoutes.VerifyEmail}`,
       loadComponent: () =>
-        import('./pages/user-profile/user-profile.component').then(
-          (c) => c.UserProfileComponent 
+        import('./pages/verify-email/verify-email.component').then(
+          (c) => c.VerifyEmailComponent 
         ),
-        canActivate: [isLoggedInGuard],
+        canActivate: [isNotLoggedInGuard],
         data: {
           showHeader: true,
         },

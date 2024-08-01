@@ -16,6 +16,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy{
   private ngUnsubscribe: Subject<void> = new Subject<void>;
   protected user!: IUserDetailsResponse;
   protected imageSrc!: string;
+  protected isLoading: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -27,16 +28,19 @@ export class UserDetailsComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(): void {    
+    this.isLoading = true;
     const id = this.route.snapshot.paramMap.get('id');
-    forkJoin([this.getUserDetails(id!), this.getUserProfilePicture(id!)]).subscribe();    
+    forkJoin([this.getUserDetails(id!), this.getUserProfilePicture(id!)]).subscribe(() => {
+      this.isLoading = false;
+    });    
   }
 
   private getUserDetails(id: string): Observable<IUserDetailsResponse> {
     return this.userService.userDetails(id).pipe(
       takeUntil(this.ngUnsubscribe),
-        tap((res) => {
-          this.user = res;
-        })
+      tap((res) => {
+        this.user = res;
+      })
     )
   }
 
