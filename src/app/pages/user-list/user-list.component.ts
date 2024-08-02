@@ -5,6 +5,7 @@ import { Subject, takeUntil, tap } from 'rxjs';
 import { MatTableModule } from '@angular/material/table';
 import { IUserListItemResponse } from '../../shared/models/user/userListItemResponse';
 import { ApplicationRoutes } from '../../const/application-routes';
+import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
 
 @Component({
   selector: 'user-list',

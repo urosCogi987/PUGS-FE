@@ -9,7 +9,6 @@ import { IChangePasswordRequest } from "../../models/user/changePasswordRequest"
 import { IProfilePictureResponse } from "../../models/user/profilePictureResponse";
 import { IUserListItemResponse } from "../../models/user/userListItemResponse";
 import { IUserDetailsResponse } from "../../models/user/userDetailsResponse";
-import { response } from "express";
 
 @Injectable({
     providedIn: 'root',

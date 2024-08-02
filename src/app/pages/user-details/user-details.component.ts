@@ -4,11 +4,12 @@ import { forkJoin, Observable, Subject, takeUntil, tap } from 'rxjs';
 import { IUserDetailsResponse } from '../../shared/models/user/userDetailsResponse';
 import { ActivatedRoute } from '@angular/router';
 import { IProfilePictureResponse } from '../../shared/models/user/profilePictureResponse';
+import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
 
 @Component({
   selector: 'user-details',
   standalone: true,
-  imports: [],
+  imports: [SpinnerComponent],
   templateUrl: './user-details.component.html',
   styleUrl: './user-details.component.scss'
 })
