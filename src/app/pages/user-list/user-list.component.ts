@@ -20,6 +20,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   protected appRoutes = ApplicationRoutes; 
   private ngUnsubscribe: Subject<void> = new Subject<void>;
   protected users!: IUserListItemResponse[];
+  protected isLoading: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -30,7 +31,10 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
   
   ngOnInit(): void {
-    this.getUserList().subscribe();
+    this.isLoading = true;
+    this.getUserList().subscribe(() => {
+      this.isLoading = false;
+    });
   }
 
   private getUserList() {

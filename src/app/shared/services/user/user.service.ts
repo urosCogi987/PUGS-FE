@@ -9,6 +9,7 @@ import { IChangePasswordRequest } from "../../models/user/changePasswordRequest"
 import { IProfilePictureResponse } from "../../models/user/profilePictureResponse";
 import { IUserListItemResponse } from "../../models/user/userListItemResponse";
 import { IUserDetailsResponse } from "../../models/user/userDetailsResponse";
+import { ISetUserStatusRequest } from "../../models/user/setUserStatusRequest";
 
 @Injectable({
     providedIn: 'root',
@@ -136,6 +137,23 @@ export class UserService {
 
       return this.http
         .get<IUserDetailsResponse>(userDetailsUrl, headers)
+        .pipe(
+          tap((response) => {
+            console.log(response);
+            return response;
+          })
+        );
+    }
+
+    public setStatus(
+      id: string,
+      body: ISetUserStatusRequest
+    ): Observable<any> {
+      const setUserStatusUrl = `${environment.apiBase}/${environment.apiUser}/${id}/setStatus`;
+      var headers = this.getStandardOptions();
+
+      return this.http
+        .put(setUserStatusUrl, body, headers)
         .pipe(
           tap((response) => {
             console.log(response);

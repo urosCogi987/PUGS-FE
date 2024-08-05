@@ -1,18 +1,55 @@
 @if (isLoading) {
     <app-spinner></app-spinner>
 } @else {
-    <div class="mb-3">        
-        <img  [src]="imageSrc" alt="Profile picture">
+    <div class="row">
+        <div class="col-sm-6 container p-5">        
+            <div class="mb-3">        
+                <img  [src]="imageSrc" alt="Profile picture">
+            </div>
+        </div>
+
+        <div class="col-sm-6 container p-5">
+            @if (user.roleNames[0] === "Driver") {
+                <div>
+                    <p>average rating: TODO</p>
+                    @if (user.status === "InProcess")
+                    {
+                        <p>User has verified email and is waiting for approval.</p>
+                    }
+                    <p>User status: {{user.status}}</p>
+                    <form                
+                        [formGroup]="setStatusForm"                
+                    >
+                        <mat-form-field>
+                            <mat-label>Status</mat-label>
+                                <mat-select
+                                    formControlName="userStatus"
+                                    [(ngModel)]="selectedStatus"
+                                    name="role"
+                                >
+                                    @for (status of statuses; track status) {
+                                    <mat-option [value]="status.value">{{ status.viewValue }}</mat-option>
+                                }
+                                </mat-select>            
+                            @if (setStatusForm.get('userStatus')!.hasError('required')) {
+                            <mat-error>Status is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </form>
+                </div>
+            }    
+        </div>        
     </div>
-    
     <div>
-        <p>username: {{user.username}}</p>
-        <p>email: {{user.email}}</p>
-        <p>name: {{user.name}}</p>
-        <p>surname: {{user.surname}}</p>
-        <p>date of birth: {{user.dateOfBirth}}</p>
-        <p>role: {{user.roleNames[0]}}</p>
-        <p>address: {{user.address}}</p>
-        <p>status: {{user.status}}</p>
-    </div>
+        <div>
+            <p>username: {{user.username}}</p>
+            <p>email: {{user.email}}</p>
+            <p>name: {{user.name}}</p>
+            <p>surname: {{user.surname}}</p>
+            <p>date of birth: {{user.dateOfBirth}}</p>
+            <p>role: {{user.roleNames[0]}}</p>
+            <p>address: {{user.address}}</p>
+            <p>status: {{user.status}}</p>
+        </div> 
+    </div>       
 }

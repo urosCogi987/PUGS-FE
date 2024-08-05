@@ -6,6 +6,7 @@ import { AuthenticationService } from "../authentication/authentication.service"
 import { ICreateDriveRequest } from "../../models/drive/createDriveRequest";
 import { ICreatedDriveResponse } from "../../models/drive/createdDriveResponse";
 import { IDriveListItemResponse } from "../../models/drive/driveListItemResponse";
+import { IDriveDetailsResponse } from "../../models/drive/driveDetailsResponse";
 
 @Injectable({
     providedIn: 'root',
@@ -64,6 +65,22 @@ export class DriveService {
 
       return this.http
         .get<IDriveListItemResponse[]>(driveListUrl, headers)
+        .pipe(
+          tap((response) => {
+            console.log(response);
+            return response;
+          })
+        );
+    }
+
+    public driveDetails(
+      id: string
+    ) : Observable<IDriveDetailsResponse> {
+      const userDetailsUrl = `${environment.apiBase}/${environment.apiDrive}/${id}`;
+      var headers = this.getStandardOptions();
+
+      return this.http
+        .get<IDriveDetailsResponse>(userDetailsUrl, headers)
         .pipe(
           tap((response) => {
             console.log(response);

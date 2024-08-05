@@ -1,6 +1,7 @@
 export interface IDriveListItemResponse {
+    id: string;
     fromAddress: string;
     toAddress: string;
-    createdOn: string;
+    createdOn: Date;
     status: string;
 }

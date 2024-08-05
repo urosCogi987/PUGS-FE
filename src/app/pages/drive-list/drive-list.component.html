@@ -1,1 +1,35 @@
-<p>drive-list works!</p>
+@if (isLoading) {
+    <app-spinner></app-spinner>
+} @else {   
+    <table class="table">
+  
+        <th>From</th>
+        <th>To</th>            
+        <th>Status</th>     
+        <th>Created on</th>
+        
+        @for (drive of drives; track drive.id) {
+            <tr>
+                <td>{{drive.fromAddress}}</td>
+                <td>{{drive.toAddress}}</td>
+                <td>{{transformStatus(drive.status)}}</td>
+                <td>{{drive.createdOn}}</td>
+                
+                <td>
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        mat-flat-button
+                    >
+                        <a 
+                            style="text-decoration:none;"
+                            mat-button 
+                            [routerLink]="['/' + appRoutes.DriveDetails + '/', drive.id]" 
+                        >Details</a> 
+                    </button>                    
+                </td>
+
+            </tr>
+        }
+    </table>
+}

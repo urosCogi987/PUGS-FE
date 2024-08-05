@@ -1,30 +1,28 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ApplicationRoutes } from '../../const/application-routes';
-import { Subject, takeUntil, tap } from 'rxjs';
+import { Observable, Subject, takeUntil, tap } from 'rxjs';
 import { DriveService } from '../../shared/services/drive/drive.service';
-import { IDriveListItemResponse } from '../../shared/models/drive/driveListItemResponse';
+import { ActivatedRoute } from '@angular/router';
+import { IDriveDetailsResponse } from '../../shared/models/drive/driveDetailsResponse';
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
-import { MatTableModule } from '@angular/material/table';
-import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-drive-list',
+  selector: 'drive-details',
   standalone: true,
-  imports: [
-    MatTableModule,
-    RouterModule,
-    SpinnerComponent
-  ],
-  templateUrl: './drive-list.component.html',
-  styleUrl: './drive-list.component.scss'
+  imports: [SpinnerComponent],
+  templateUrl: './drive-details.component.html',
+  styleUrl: './drive-details.component.scss'
 })
-export class DriveListComponent implements OnInit, OnDestroy {  
+export class DriveDetailsComponent implements OnInit, OnDestroy {
   protected appRoutes = ApplicationRoutes; 
-  private ngUnsubscribe: Subject<void> = new Subject<void>;
-  protected drives!: IDriveListItemResponse[];
+  private ngUnsubscribe: Subject<void> = new Subject<void>;  
   protected isLoading: boolean = false;
+  protected drive!: IDriveDetailsResponse;
 
-  constructor(private driveService: DriveService) {}
+  constructor(
+    private driveService: DriveService,
+    private route: ActivatedRoute,
+  ) {}
 
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
@@ -33,16 +31,17 @@ export class DriveListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.getDriveList().subscribe(() => {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.getDriveDetails(id!).subscribe(() => {
       this.isLoading = false;
     });
   }
 
-  private getDriveList() {
-    return this.driveService.getDrivesForUser().pipe(
+  private getDriveDetails(id: string): Observable<IDriveDetailsResponse> {
+    return this.driveService.driveDetails(id).pipe(
       takeUntil(this.ngUnsubscribe),
       tap((res) => {
-        this.drives = res;
+        this.drive = res;
       })
     )
   }
