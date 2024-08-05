@@ -38,8 +38,17 @@ export class DriveListComponent implements OnInit, OnDestroy {
     });
   }
 
+  // private getDriveListForUser() {
+  //   return this.driveService.getDrivesForUser().pipe(
+  //     takeUntil(this.ngUnsubscribe),
+  //     tap((res) => {
+  //       this.drives = res;
+  //     })
+  //   )
+  // }
+
   private getDriveList() {
-    return this.driveService.getDrivesForUser().pipe(
+    return this.driveService.getDrives().pipe(
       takeUntil(this.ngUnsubscribe),
       tap((res) => {
         this.drives = res;

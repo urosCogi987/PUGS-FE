@@ -39,12 +39,24 @@
 
     <mat-grid-tile>
         <mat-card style="background-color: gray;">
-            <mat-card-content>My drives</mat-card-content>
+            <mat-card-content>New drives</mat-card-content>
             <mat-card-actions>
                 <a 
                     mat-button
-                    [routerLink]="'/' + appRoutes.DriveList"
-                >Drive list</a>
+                    [routerLink]="'/' + appRoutes.NewDrives"
+                >New drives</a>
+            </mat-card-actions>
+        </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+        <mat-card style="background-color: gray;">
+            <mat-card-content>All drives</mat-card-content>
+            <mat-card-actions>
+                <a 
+                    mat-button
+                    [routerLink]="'/' + appRoutes.AllDrives"
+                >All drives</a>
             </mat-card-actions>
         </mat-card>
     </mat-grid-tile>
