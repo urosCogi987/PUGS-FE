@@ -90,7 +90,7 @@ export class RegisterComponent implements OnInit {
         console.log(err);
       },
       complete: () => {
-        this.router.navigate([`${this.appRoutes.Login}`]);
+        this.router.navigate([`${this.appRoutes.VerifyEmail}`]);
       },
     });
   }

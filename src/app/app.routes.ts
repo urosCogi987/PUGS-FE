@@ -3,6 +3,9 @@ import { ApplicationRoutes } from './const/application-routes';
 import { isLoggedInGuard } from './shared/guards/is-logged-in.guard';
 import { isNotLoggedInGuard } from './shared/guards/is-not-logged-in.guard';
 import { UserDetailsComponent } from './pages/user-details/user-details.component';
+import { CreateDriveComponent } from './pages/create-drive/create-drive.component';
+import { DriveListComponent } from './pages/drive-list/drive-list.component';
+import { DriveDetailsComponent } from './pages/drive-details/drive-details.component';
 
 export const routes: Routes = [
     {
@@ -72,12 +75,45 @@ export const routes: Routes = [
         },
     },
     {
-      path: `${ApplicationRoutes.VerifyEmail}/:token`,
+      path: `${ApplicationRoutes.CreateDrive}`,
       loadComponent: () =>
-        import('./pages/user-profile/user-profile.component').then(
-          (c) => c.UserProfileComponent 
+        import('./pages/create-drive/create-drive.component').then(
+          (c) => CreateDriveComponent
         ),
         canActivate: [isLoggedInGuard],
+        data: {
+          showHeader: true,
+        },
+    },
+    {
+      path: `${ApplicationRoutes.DriveList}`,
+      loadComponent: () =>
+        import('./pages/drive-list/drive-list.component').then(
+          (c) => DriveListComponent
+        ),
+        canActivate: [isLoggedInGuard],
+        data: {
+          showHeader: true,
+        }
+    },
+    {
+      path: `${ApplicationRoutes.DriveDetails}/:id`,
+      loadComponent: () =>
+        import('./pages/drive-details/drive-details.component').then(
+          (c) => DriveDetailsComponent
+        ),
+        canActivate: [isLoggedInGuard],
+        data: {
+          showHeader: true,
+        },
+    },
+    {
+      path: `${ApplicationRoutes.VerifyEmail}`,
+      loadComponent: () =>
+        import('./pages/verify-email/verify-email.component').then(
+          (c) => c.VerifyEmailComponent 
+        ),
+        canActivate: [isNotLoggedInGuard],
         data: {
           showHeader: true,
         },

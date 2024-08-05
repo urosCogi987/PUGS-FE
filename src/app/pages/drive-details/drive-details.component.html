@@ -1,0 +1,16 @@
+@if (isLoading) {
+    <app-spinner></app-spinner>
+} @else {        
+    <div>
+        <p>user: {{drive.userUsername}}</p>
+        <p>driver: {{drive.driverUsername}}</p>
+        <p>from: {{drive.fromAddress}}</p>
+        <p>to: {{drive.toAddress}}</p>
+        <p>drive duration: {{drive.driveTime}}</p>
+        <p>driver arriving time: {{drive.driverArrivingTime}}</p>
+        <p>distance: {{drive.distance}}</p>
+        <p>price: {{drive.price}}</p>
+        <p>created on: {{drive.createdOn}}</p>
+        <p>status: {{transformStatus(drive.status)}}</p>
+    </div>
+}

@@ -1,0 +1,123 @@
+@if (isLoading) {
+    <app-spinner></app-spinner>
+} @else {
+    @if (driveCreated) {
+        <div class="col-sm-6">
+            <div>
+                <p>Driver will arive in approximately {{driveResponse.estimatedDriverArrivingTime}} minutes</p>
+                <p>Approximate price is {{driveResponse.estimatedPrice}}.</p>
+                <div class="mb-3">
+                    <button
+                        type="button"
+                        class="btn btn-success"
+                        mat-flat-button                          
+                        [disabled]="createDriveForm.invalid"
+                        (click)="acceptDrive()"
+                    >
+                        Accept
+                    </button>
+                </div>
+                <div class="mb-3">
+                    <button
+                        type="button"
+                        class="btn btn-danger"
+                        mat-flat-button                          
+                        [disabled]="createDriveForm.invalid"
+                        (click)="declineDrive()"
+                    >
+                        Decline
+                    </button>
+                </div>
+            </div>
+        </div>
+    } @else {    
+        <div class="col-sm-6">
+            <div>
+                <form
+                    class="container p-5"
+                    [formGroup]="createDriveForm"
+                    (ngSubmit)="$event.preventDefault(); createDrive()"          
+                >
+                
+                    <div class="mb-3 col-3">
+                        <mat-form-field>
+                            <mat-label>Starting address</mat-label>
+                            <input
+                                type="text"
+                                matInput
+                                formControlName="fromAddress"
+                                placeholder="Select starting address"                  
+                            />
+                            @if (createDriveForm.get('fromAddress')!.hasError('required')) {
+                            <mat-error>Starting address is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+
+                    <div class="mb-3 col-3">
+                        <mat-form-field>
+                            <mat-label>Destination address</mat-label>
+                            <input
+                                type="text"
+                                matInput
+                                formControlName="toAddress"
+                                placeholder="Select destination address"                  
+                            />
+                            @if (createDriveForm.get('toAddress')!.hasError('required')) {
+                            <mat-error>Destination address is required</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+
+                    <div class="mb-3 col-3">
+                        <mat-form-field>
+                            <mat-label>Distance</mat-label>
+                            <input
+                                type="number"
+                                matInput
+                                formControlName="distance"
+                                placeholder="Drive distance"                  
+                            />
+                            @if (createDriveForm.get('distance')!.hasError('required')) {
+                            <mat-error>Distance is required</mat-error>
+                            }
+                        </mat-form-field>
+                        @if (createDriveForm.hasError('valuesNotGreaterThanZero')) {
+                        <mat-error class="custom-error">Can not be less than 0</mat-error>
+                        }
+                    </div>
+
+                    <div class="mb-3 col-3">
+                        <mat-form-field>
+                            <mat-label>Estimated duration</mat-label>
+                            <input
+                                type="number"
+                                matInput
+                                formControlName="estimatedDuration"
+                                placeholder="Drive estimated duration"                  
+                            />
+                            @if (createDriveForm.get('estimatedDuration')!.hasError('required')) {
+                            <mat-error>Distance is required</mat-error>
+                            }
+                        </mat-form-field>
+                        @if (createDriveForm.hasError('valuesNotGreaterThanZero')) {
+                        <mat-error class="custom-error">Can not be less than 0</mat-error>
+                        }
+                    </div>
+
+                    <div class="mb-3">
+                        <button
+                            type="submit"
+                            class="btn btn-success"
+                            mat-flat-button                          
+                            [disabled]="createDriveForm.invalid"
+                        >
+                            Create drive
+                        </button>
+                    </div>
+                
+                </form>
+            </div>
+        </div>  
+    }  
+}

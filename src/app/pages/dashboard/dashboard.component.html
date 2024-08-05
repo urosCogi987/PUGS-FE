@@ -25,7 +25,27 @@
         </mat-card>
     </mat-grid-tile>
 
-    <mat-grid-tile style="background-color: gray;">3</mat-grid-tile>
+    <mat-grid-tile>
+        <mat-card style="background-color: gray;">
+            <mat-card-content>Create drive</mat-card-content>
+            <mat-card-actions>
+                <a 
+                    mat-button
+                    [routerLink]="'/' + appRoutes.CreateDrive"
+                >Create drive</a>
+            </mat-card-actions>
+        </mat-card>
+    </mat-grid-tile>
 
-    <mat-grid-tile style="background-color: gray;">4</mat-grid-tile>
+    <mat-grid-tile>
+        <mat-card style="background-color: gray;">
+            <mat-card-content>My drives</mat-card-content>
+            <mat-card-actions>
+                <a 
+                    mat-button
+                    [routerLink]="'/' + appRoutes.DriveList"
+                >Drive list</a>
+            </mat-card-actions>
+        </mat-card>
+    </mat-grid-tile>
 </mat-grid-list>

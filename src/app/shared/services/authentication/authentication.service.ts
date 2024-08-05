@@ -9,6 +9,7 @@ import { RegistrationResponse } from '../../models/user/registerUser';
 import { TokenResponse } from '../../models/tokenResponse';
 import { ApplicationRoutes } from '../../../const/application-routes';
 import { DOCUMENT } from '@angular/common';
+import { IVerifyEmailRequest } from '../../models/authentication/verifyEmailRequest';
 
 @Injectable({
   providedIn: 'root',
@@ -124,6 +125,20 @@ export class AuthenticationService {
 
   public logoutUser(): void {
     this.doLogoutUser();
+  }
+
+  public verifyEmail(token: IVerifyEmailRequest): Observable<any> {
+    return this.http
+      .post<any>(
+        `${environment.apiBase}/${environment.apiBaseAuthentication}/verify`,
+        token
+      )
+      .pipe(
+        tap((response) => {
+          console.log(response);
+          return response;
+        })
+      )
   }
   
   private doLogoutUser() {

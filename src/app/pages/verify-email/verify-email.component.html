@@ -1,0 +1,45 @@
+<div class="box-shadow login form-template-black">
+    <h1>Verify email</h1>
+    <form
+      class="container form"
+      [formGroup]="emailVerificationForm"
+      (ngSubmit)="verifyEmail()"
+    >
+
+    <div class="mb-3">
+        <mat-form-field class="example-full-width">
+          <mat-label>Verification code</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="verificationToken"
+            placeholder="Copy token from your email."
+          />
+          @if (emailVerificationForm.get('verificationToken')!.hasError('required')) {
+          <mat-error>Verification code is required</mat-error>
+          } @if (emailVerificationForm.get('verificationToken')!.hasError('minlength')) {
+          <mat-error>Verification code has to be 8 characters long</mat-error>
+          } @if (emailVerificationForm.get('verificationToken')!.hasError('maxlength')) {
+          <mat-error>Verification code has to be 8 characters long</mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      <div class="mb-3">
+        <button
+          type="submit"
+          mat-flat-button
+          class="btn btn-primary"
+          [disabled]="emailVerificationForm.invalid"
+        >
+          Verify
+        </button>
+      </div>
+
+      <div class="mb-3">
+        <span class="link-text">Didn't receive a code?</span>
+        <a mat-button href="#" (click)="resendToken()">Resend</a>        
+      </div>
+
+    </form>
+</div>

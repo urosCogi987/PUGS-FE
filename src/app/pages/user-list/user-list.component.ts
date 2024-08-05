@@ -5,6 +5,7 @@ import { Subject, takeUntil, tap } from 'rxjs';
 import { MatTableModule } from '@angular/material/table';
 import { IUserListItemResponse } from '../../shared/models/user/userListItemResponse';
 import { ApplicationRoutes } from '../../const/application-routes';
+import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
 
 @Component({
   selector: 'user-list',
@@ -19,6 +20,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   protected appRoutes = ApplicationRoutes; 
   private ngUnsubscribe: Subject<void> = new Subject<void>;
   protected users!: IUserListItemResponse[];
+  protected isLoading: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -29,7 +31,10 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
   
   ngOnInit(): void {
-    this.getUserList().subscribe();
+    this.isLoading = true;
+    this.getUserList().subscribe(() => {
+      this.isLoading = false;
+    });
   }
 
   private getUserList() {

@@ -16,6 +16,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { repeatPasswordValidator } from './repeatPassword';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { IProfilePictureResponse } from '../../shared/models/user/profilePictureResponse';
+import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
+import { IDriveListItemResponse } from '../../shared/models/drive/driveListItemResponse';
+import { DriveService } from '../../shared/services/drive/drive.service';
 
 @Component({
   selector: 'user-profile',
@@ -27,13 +30,14 @@ import { IProfilePictureResponse } from '../../shared/models/user/profilePicture
     MatDatepickerModule,
     MatFormFieldModule,
     NgIf,
-    CommonModule,    
-    FormsModule,    
+    CommonModule,
+    FormsModule,
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-    MatToolbarModule    
-  ],
+    MatToolbarModule,
+    SpinnerComponent
+],
   providers: [provideNativeDateAdapter()],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss'
@@ -62,16 +66,15 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private userService: UserService    
+    private userService: UserService,
+    private driveService: DriveService    
   ) { }
     
 
-  ngOnInit(): void {    
-    // this.getUserProfile().subscribe();     
-    // this.getUserProfilePicture().subscribe();    
+  ngOnInit(): void {        
     this.isLoading = true;
     forkJoin([this.getUserProfile(), this.getUserProfilePicture()]).subscribe(() => {
-      this.isLoading = false; // merge map i map
+      this.isLoading = false;
     });
     this.isEditMode = false;
     this.isChangingPasswordMode = false;
@@ -215,4 +218,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     );
   }
 
+  // kako resiti za admina?
+  // rivate getDrivesForUser() : Observable<IDriveListItemResponse[]> {
+  //   pthis.driveService.getDrivesForUser()
+  // }
 }
+
