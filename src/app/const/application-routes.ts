@@ -7,7 +7,8 @@ export const ApplicationRoutes = {
     UserList: 'user-list',
     UesrDetails: 'user-details',
     CreateDrive: 'create-drive',
-    DriveList: 'drive-list',
+    NewDrives: 'new-drives',
+    AllDrives: 'all-drives',
     DriveDetails: 'drive-details',
     VerifyEmail: 'verify-email'
   };

@@ -73,6 +73,20 @@ export class DriveService {
         );
     }
 
+    public getDrives(): Observable<IDriveListItemResponse[]> {
+      const driveListUrl = `${environment.apiBase}/${environment.apiDrive}/new`;
+      var headers = this.getStandardOptions();
+
+      return this.http
+        .get<IDriveListItemResponse[]>(driveListUrl, headers)
+        .pipe(
+          tap((response) => {
+            console.log(response);
+            return response;
+          })
+        );
+    }
+
     public driveDetails(
       id: string
     ) : Observable<IDriveDetailsResponse> {

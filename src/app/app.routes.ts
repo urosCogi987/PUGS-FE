@@ -86,7 +86,7 @@ export const routes: Routes = [
         },
     },
     {
-      path: `${ApplicationRoutes.DriveList}`,
+      path: `${ApplicationRoutes.NewDrives}`,
       loadComponent: () =>
         import('./pages/drive-list/drive-list.component').then(
           (c) => DriveListComponent
@@ -115,7 +115,7 @@ export const routes: Routes = [
         ),
         canActivate: [isNotLoggedInGuard],
         data: {
-          showHeader: true,
+          showHeader: false,
         },
     },
     {
