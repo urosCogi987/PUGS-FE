@@ -115,7 +115,7 @@ export const routes: Routes = [
         ),
         canActivate: [isNotLoggedInGuard],
         data: {
-          showHeader: true,
+          showHeader: false,
         },
     },
     {
