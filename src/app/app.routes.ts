@@ -6,6 +6,8 @@ import { UserDetailsComponent } from './pages/user-details/user-details.componen
 import { CreateDriveComponent } from './pages/create-drive/create-drive.component';
 import { DriveListComponent } from './pages/drive-list/drive-list.component';
 import { DriveDetailsComponent } from './pages/drive-details/drive-details.component';
+import { DrivesNewComponent } from './pages/drives-new/drives-new.component';
+import { DrivesMyComponent } from './pages/drives-my/drives-my.component';
 
 export const routes: Routes = [
     {
@@ -86,10 +88,32 @@ export const routes: Routes = [
         },
     },
     {
-      path: `${ApplicationRoutes.NewDrives}`,
+      path: `${ApplicationRoutes.AllDrives}`,
       loadComponent: () =>
         import('./pages/drive-list/drive-list.component').then(
           (c) => DriveListComponent
+        ),
+        canActivate: [isLoggedInGuard],
+        data: {
+          showHeader: true,
+        }
+    },
+    {
+      path: `${ApplicationRoutes.MyDrives}`,
+      loadComponent: () =>
+        import('./pages/drives-my/drives-my.component').then(
+          (c) => DrivesMyComponent
+        ),
+        canActivate: [isLoggedInGuard],
+        data: {
+          showHeader: true,
+        }
+    },
+    {
+      path: `${ApplicationRoutes.NewDrives}`,
+      loadComponent: () =>
+        import('./pages/drives-new/drives-new.component').then(
+          (c) => DrivesNewComponent
         ),
         canActivate: [isLoggedInGuard],
         data: {

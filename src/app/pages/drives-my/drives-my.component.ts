@@ -1,24 +1,24 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ApplicationRoutes } from '../../const/application-routes';
 import { Subject, takeUntil, tap } from 'rxjs';
-import { DriveService } from '../../shared/services/drive/drive.service';
 import { IDriveListItemResponse } from '../../shared/models/drive/driveListItemResponse';
+import { DriveService } from '../../shared/services/drive/drive.service';
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
-import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
-  selector: 'app-drive-list',
+  selector: 'drives-my',
   standalone: true,
   imports: [
     MatTableModule,
     RouterModule,
     SpinnerComponent
   ],
-  templateUrl: './drive-list.component.html',
-  styleUrl: './drive-list.component.scss'
+  templateUrl: './drives-my.component.html',
+  styleUrl: './drives-my.component.scss'
 })
-export class DriveListComponent implements OnInit, OnDestroy {  
+export class DrivesMyComponent implements OnInit, OnDestroy {
   protected appRoutes = ApplicationRoutes; 
   private ngUnsubscribe: Subject<void> = new Subject<void>;
   protected drives!: IDriveListItemResponse[];
@@ -33,19 +33,19 @@ export class DriveListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.getDriveList().subscribe(() => {
+    this.getDriveListForUser().subscribe(() => {
       this.isLoading = false;
     });
-  }  
+  }
 
-  private getDriveList() {
-    return this.driveService.getDrives().pipe(
+  private getDriveListForUser() {
+    return this.driveService.getDrivesForUser().pipe(
       takeUntil(this.ngUnsubscribe),
       tap((res) => {
         this.drives = res;
       })
     )
-  }
+  }  
 
   protected transformStatus(status: string): string {
     if (!status) return status;

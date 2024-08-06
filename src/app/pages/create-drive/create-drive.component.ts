@@ -33,6 +33,7 @@ export class CreateDriveComponent implements OnInit { // Ovde ce se valjda kompl
   protected appRoutes = ApplicationRoutes;
   protected createDriveForm!: FormGroup;
   protected driveCreated: boolean = false;
+  protected driveFinished: boolean = false; // tajmer kad istekne, kako, sta
   protected isLoading: boolean = false;
   protected driveResponse!: ICreatedDriveResponse;
 

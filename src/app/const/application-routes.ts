@@ -9,6 +9,7 @@ export const ApplicationRoutes = {
     CreateDrive: 'create-drive',
     NewDrives: 'new-drives',
     AllDrives: 'all-drives',
+    MyDrives: 'my-drives',
     DriveDetails: 'drive-details',
     VerifyEmail: 'verify-email'
   };

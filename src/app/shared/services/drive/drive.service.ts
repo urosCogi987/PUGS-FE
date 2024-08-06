@@ -59,7 +59,7 @@ export class DriveService {
         );
     }
 
-    public getDrivesForUser(): Observable<IDriveListItemResponse[]> {
+    public getDrives(): Observable<IDriveListItemResponse[]> {
       const driveListUrl = `${environment.apiBase}/${environment.apiDrive}`;
       var headers = this.getStandardOptions();
 
@@ -73,7 +73,23 @@ export class DriveService {
         );
     }
 
-    public getDrives(): Observable<IDriveListItemResponse[]> {
+    public getDrivesForUser(): Observable<IDriveListItemResponse[]> {
+      const driveListUrl = `${environment.apiBase}/${environment.apiDrive}/my`;
+      var headers = this.getStandardOptions();
+
+      return this.http
+        .get<IDriveListItemResponse[]>(driveListUrl, headers)
+        .pipe(
+          tap((response) => {
+            console.log(response);
+            return response;
+          })
+        );
+    }
+
+    
+
+    public getNewDrives(): Observable<IDriveListItemResponse[]> {
       const driveListUrl = `${environment.apiBase}/${environment.apiDrive}/new`;
       var headers = this.getStandardOptions();
 
@@ -95,6 +111,22 @@ export class DriveService {
 
       return this.http
         .get<IDriveDetailsResponse>(userDetailsUrl, headers)
+        .pipe(
+          tap((response) => {
+            console.log(response);
+            return response;
+          })
+        );
+    }
+
+    public acceptDrive(
+      id: string
+    ) : Observable<any> {
+      const acceptDriveUrl = `${environment.apiBase}/${environment.apiDrive}/${id}/accept`;
+      var headers = this.getStandardOptions();
+
+      return this.http
+        .put(acceptDriveUrl, null, headers)
         .pipe(
           tap((response) => {
             console.log(response);

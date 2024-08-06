@@ -1,4 +1,5 @@
 export interface IDriveDetailsResponse {
+    id: string;
     userUsername: string;
     driverUsername: string;    
     fromAddress: string;
@@ -9,4 +10,5 @@ export interface IDriveDetailsResponse {
     price: number;
     createdOn: Date;
     status: string;
+    driverRating: number;
 }
