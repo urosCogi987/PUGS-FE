@@ -16,7 +16,7 @@ import { SpinnerComponent } from '../../shared/components/spinner/spinner.compon
 export class DriveDetailsComponent implements OnInit, OnDestroy {
   protected appRoutes = ApplicationRoutes; 
   private ngUnsubscribe: Subject<void> = new Subject<void>;  
-  protected isLoading: boolean = false;
+  protected isLoading: boolean = false;  
   protected drive!: IDriveDetailsResponse;
 
   constructor(
@@ -52,5 +52,12 @@ export class DriveDetailsComponent implements OnInit, OnDestroy {
     return status
       .replace(/([a-z])([A-Z])/g, '$1 $2')
       .replace(/^./, str => str.toUpperCase());
+  }
+
+  protected acceptDrive() {
+    this.isLoading = true;
+    this.driveService.acceptDrive(this.drive.id).subscribe(() => {
+      this.isLoading = false;
+    });
   }
 }

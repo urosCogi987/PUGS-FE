@@ -12,5 +12,17 @@
         <p>price: {{drive.price}}</p>
         <p>created on: {{drive.createdOn}}</p>
         <p>status: {{transformStatus(drive.status)}}</p>
+        <p>driver rating: {{drive.driverRating !== null ? drive.driverRating : 'Not rated'}}</p>
     </div>
+    <!-- @if (getCurrentUser.isDriver) {} -->
+    <div class="mb-3">
+        <button
+          type="button"
+          class="btn btn-primary"
+          mat-flat-button                    
+          (click)="acceptDrive()"    
+        >
+          Accept drive
+        </button>
+      </div>
 }
