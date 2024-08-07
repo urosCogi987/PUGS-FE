@@ -1,0 +1,52 @@
+:host {
+    background-image: url('../../../assets/img/bgr-taxi.jpg');
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100dvh;
+    margin-top: -90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    .taxi-order {
+        width: 200px;
+      align-self: flex-start;      
+    }
+
+    .dashboard-options {
+        width: 200px; 
+    }
+  
+    .mat-divider {
+      --mat-divider-width: 8px;
+      --mat-divider-color: var(--taxi-color);
+      width: 150px;
+    }
+  
+    .page-width {
+      display: flex;
+      align-items: center;
+    }
+  
+    .page-text {
+  
+  
+      width: 40%;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+  
+      h1 {
+        font-weight: 600;
+      }
+    }
+  
+    .page-image {
+      width: 60%;
+  
+      img {
+        width: 100%;
+      }
+    }
+}

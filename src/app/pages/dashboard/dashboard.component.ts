@@ -4,6 +4,7 @@ import { ApplicationRoutes } from '../../const/application-routes';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatButtonModule } from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +13,9 @@ import {MatCardModule} from '@angular/material/card';
     RouterModule,
     MatButtonModule,
     MatGridListModule, 
-    MatCardModule],
+    MatCardModule,
+    MatDividerModule
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })

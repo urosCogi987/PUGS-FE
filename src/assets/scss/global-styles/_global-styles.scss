@@ -4,11 +4,27 @@
   --link-color-black-template: #58D2BA;
   --black-color-black-template: #212623;
   --disabled-color-black-template: #74777f;
+  --taxi-color: #209c83;
+}
+
+.mat-accent.mat-mdc-button-base {
+  --mat-fab-foreground-color: var(--link-color-black-template);
+  --mat-fab-state-layer-color: var(--link-color-black-template);
+  --mat-fab-ripple-color: rgba(0, 0, 110, 0.12);
+  --mat-fab-small-foreground-color: var(--link-color-black-template);
+  --mat-fab-small-state-layer-color: var(--link-color-black-template);
+}
+
+.panel-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
 }
 
 .box-shadow {
-  box-shadow: 5px 5px 10px 0px var(--black-color-black-template);
-    border-radius: 10px;
+  box-shadow: 5px 5px 15px -10px var(--black-color-black-template);
+  border-radius: 10px;
 }
 
 .p-relative{
@@ -20,4 +36,21 @@
   font-size: 12px;
   right: 0;
   bottom: 0;
+}
+
+.btn.taxi-order {
+  --mdc-filled-button-container-color: var(--taxi-color);
+  color: var(--black-color-black-template);
+  font-weight: 600;
+}
+
+.btn.dashboard-options {
+  --mdc-filled-button-container-color: var(--taxi-color);
+  color: var(--black-color-black-template);
+  font-weight: 600;
+}
+
+.page-width {
+  width: 1280px;
+  margin: 0 auto;
 }

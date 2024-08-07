@@ -1,76 +1,70 @@
-<mat-grid-list cols="2" rowHeight="3:1" [gutterSize]="'100px'">
+<div class="dashboard">
+    <div class="page-width">        
+      <div class="page-text">
+        <h1>
+          Taxi App <br />
+          Easy, fast and safe service.
+        </h1>
+  
+        <mat-divider></mat-divider>
+  
+        <p>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book.
+        </p>
+  
+        <!--User-->
+        <a
+          [routerLink]="'/' + appRoutes.CreateDrive"
+          mat-flat-button
+          class="btn dashboard-options btn-primary"
+          >Order a taxi</a
+        >
+        
+        <a
+          [routerLink]="'/' + appRoutes.Profile"
+          mat-flat-button
+          class="btn dashboard-options btn-primary"
+          >Profile</a
+        >    
 
-    <mat-grid-tile>
-        <mat-card style="background-color: gray;">
-            <mat-card-content>User list</mat-card-content>
-            <mat-card-actions>
-                <a 
-                    mat-button
-                    [routerLink]="'/' + appRoutes.UserList"
-                >User list</a>
-            </mat-card-actions>
-        </mat-card>
-    </mat-grid-tile>
+        <!--Admin-->
+        <a
+          [routerLink]="'/' + appRoutes.UserList"
+          mat-flat-button
+          class="btn dashboard-options btn-primary"
+          >Users</a
+        >            
 
-    <!-- only for admin, TODO: logic for getCurrentUser -> and putting it in header component also -->
-    <mat-grid-tile>
-        <mat-card style="background-color: gray;">
-            <mat-card-content>View your profile</mat-card-content>
-            <mat-card-actions>
-                <a 
-                    mat-button
-                    [routerLink]="'/' + appRoutes.Profile"
-                >Profile</a>
-            </mat-card-actions>
-        </mat-card>
-    </mat-grid-tile>
+        <!--Driver-->
+        <a
+          [routerLink]="'/' + appRoutes.NewDrives"
+          mat-flat-button
+          class="btn dashboard-options btn-primary"
+          >New drives</a
+        >
 
-    <mat-grid-tile>
-        <mat-card style="background-color: gray;">
-            <mat-card-content>Create drive</mat-card-content>
-            <mat-card-actions>
-                <a 
-                    mat-button
-                    [routerLink]="'/' + appRoutes.CreateDrive"
-                >Create drive</a>
-            </mat-card-actions>
-        </mat-card>
-    </mat-grid-tile>
+        <!--Admin-->
+        <a
+          [routerLink]="'/' + appRoutes.AllDrives"
+          mat-flat-button
+          class="btn dashboard-options btn-primary"
+          >Drives</a
+        >
 
-    <mat-grid-tile>
-        <mat-card style="background-color: gray;">
-            <mat-card-content>New drives</mat-card-content>
-            <mat-card-actions>
-                <a 
-                    mat-button
-                    [routerLink]="'/' + appRoutes.NewDrives"
-                >New drives</a>
-            </mat-card-actions>
-        </mat-card>
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-        <mat-card style="background-color: gray;">
-            <mat-card-content>All drives</mat-card-content>
-            <mat-card-actions>
-                <a 
-                    mat-button
-                    [routerLink]="'/' + appRoutes.AllDrives"
-                >All drives</a>
-            </mat-card-actions>
-        </mat-card>
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-        <mat-card style="background-color: gray;">
-            <mat-card-content>My drives</mat-card-content>
-            <mat-card-actions>
-                <a 
-                    mat-button
-                    [routerLink]="'/' + appRoutes.MyDrives"
-                >My drives</a>
-            </mat-card-actions>
-        </mat-card>
-    </mat-grid-tile>
-
-</mat-grid-list>
+        <!--User, driver-->
+        <a
+          [routerLink]="'/' + appRoutes.MyDrives"
+          mat-flat-button
+          class="btn dashboard-options btn-primary"
+          >My drives</a
+        >
+      </div>
+  
+      <div class="page-image">
+        <img src="./assets/img/taxi-car.png" alt="" />
+      </div>
+    </div>
+</div>
