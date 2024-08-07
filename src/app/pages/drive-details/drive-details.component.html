@@ -1,28 +1,54 @@
 @if (isLoading) {
     <app-spinner></app-spinner>
-} @else {        
-    <div>
-        <p>user: {{drive.userUsername}}</p>
-        <p>driver: {{drive.driverUsername}}</p>
-        <p>from: {{drive.fromAddress}}</p>
-        <p>to: {{drive.toAddress}}</p>
-        <p>drive duration: {{drive.driveTime}}</p>
-        <p>driver arriving time: {{drive.driverArrivingTime}}</p>
-        <p>distance: {{drive.distance}}</p>
-        <p>price: {{drive.price}}</p>
-        <p>created on: {{drive.createdOn}}</p>
-        <p>status: {{transformStatus(drive.status)}}</p>
-        <p>driver rating: {{drive.driverRating !== null ? drive.driverRating : 'Not rated'}}</p>
+} @else {      
+  <div class="row">
+    <div class="col-sm-6">
+        <div>
+          <p>user: {{drive.userUsername}}</p>
+          <p>driver: {{drive.driverUsername}}</p>
+          <p>from: {{drive.fromAddress}}</p>
+          <p>to: {{drive.toAddress}}</p>
+          <p>drive duration: {{drive.driveTime}}</p>
+          <p>driver arriving time: {{drive.driverArrivingTime}}</p>
+          <p>distance: {{drive.distance}}</p>
+          <p>price: {{drive.price}}</p>
+          <p>created on: {{drive.createdOn}}</p>
+          <p>status: {{transformStatus(drive.status)}}</p>
+          <p>driver rating: {{drive.driverRating !== null ? drive.driverRating : 'Not rated'}}</p>
+          <rate-driver [rating]="drive.driverRating" [maxRating]="5" [readonly]="true"></rate-driver>
+        </div>
+        <div class="mb-3">
+          <button
+            type="button"
+            class="btn btn-primary"
+            mat-flat-button                    
+            (click)="acceptDrive()"    
+          >
+            Accept drive
+          </button>
+      </div>
     </div>
     <!-- @if (getCurrentUser.isDriver) {} -->
-    <div class="mb-3">
-        <button
-          type="button"
-          class="btn btn-primary"
-          mat-flat-button                    
-          (click)="acceptDrive()"    
-        >
-          Accept drive
-        </button>
+    
+
+    <!-- @if (getCurrentUser.isUser && drive.status === 'Finished')-->
+     @if (!drive.driverRating) {
+      <div class="col-sm-6">      
+        <div>      
+          <rate-driver [(rating)]="userRating" [maxRating]="5"></rate-driver>
+          <p>Rating: {{ userRating }}</p>
+        </div>
+        <div class="mb-3">
+          <button
+            type="button"
+            class="btn btn-primary"
+            mat-flat-button                    
+            (click)="rateDriver()"    
+          >
+            Rate
+          </button>
+        </div>
       </div>
+     }    
+  </div>  
 }

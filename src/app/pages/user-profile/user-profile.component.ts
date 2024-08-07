@@ -216,11 +216,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         this.status = res.status;        
        })
     );
-  }
-
-  // kako resiti za admina?
-  // rivate getDrivesForUser() : Observable<IDriveListItemResponse[]> {
-  //   pthis.driveService.getDrivesForUser()
-  // }
+  }  
 }
 

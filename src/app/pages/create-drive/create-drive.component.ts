@@ -32,8 +32,7 @@ import { Router } from '@angular/router';
 export class CreateDriveComponent implements OnInit { // Ovde ce se valjda komplet logika menjati kad se mape ubace
   protected appRoutes = ApplicationRoutes;
   protected createDriveForm!: FormGroup;
-  protected driveCreated: boolean = false;
-  protected driveFinished: boolean = false; // tajmer kad istekne, kako, sta
+  protected driveCreated: boolean = false;  
   protected isLoading: boolean = false;
   protected driveResponse!: ICreatedDriveResponse;
 
