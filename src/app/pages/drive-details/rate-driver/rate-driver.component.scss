@@ -1,0 +1,13 @@
+.star-rating {
+  font-size: 24px;
+  color: gold;
+  cursor: pointer;
+}
+
+.star-rating .filled {
+  color: gold;
+}
+
+.star-rating .empty {
+  color: lightgray;
+}

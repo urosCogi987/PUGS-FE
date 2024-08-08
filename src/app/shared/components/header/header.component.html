@@ -1,27 +1,44 @@
 <div class="header-container box-shadow">
-    <mat-card>
-      <div class="header-navigation">
-        <a
-          [routerLink]="appRoutes.Dashboard"
-          routerLinkActive="active"
-          class="header-link"
-        >
-          Dashboard
-        </a>
-      </div>
+  <mat-card>
+    <div class="logo">
+      <a routerLink="">
+        <img src="./assets/img/logo.png" alt="" />
+      </a>
+    </div>
+    <div class="header-navigation">
+      <a
+        [routerLink]="appRoutes.Dashboard"
+        routerLinkActive="active"
+        class="header-link"
+      >
+        Dashboard
+      </a>      
+    </div>
 
-      <div class="header-controls">
-        <ng-container *ngIf="isLoggedIn">
-          <button mat-button [matMenuTriggerFor]="menu">Profile</button>
-          <mat-menu #menu="matMenu">
-            <div class="panel-controls">
-              <button mat-flat-button [routerLink]="">Account</button>
-              <button mat-flat-button color="warn" (click)="logOut()">
-                Logout
-              </button>
-            </div>
-          </mat-menu>
-        </ng-container>
-      </div>
-    </mat-card>
+    <div class="header-controls">
+      <ng-container *ngIf="isLoggedIn">
+        <!-- <button mat-button [matMenuTriggerFor]="menu">Profile</button> -->
+        <button
+          mat-mini-fab
+          [matMenuTriggerFor]="menu"
+          aria-label="Example icon button with a menu icon"
+        >
+          <mat-icon>account_circle</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <div class="panel-controls">
+            <a
+              mat-flat-button
+              class="btn dashboard-options btn-primary"
+              [routerLink]="appRoutes.Profile"
+              >Account</a
+            >
+            <button mat-flat-button color="warn" (click)="logOut()">
+              Logout
+            </button>
+          </div>
+        </mat-menu>
+      </ng-container>
+    </div>
+  </mat-card>
 </div>

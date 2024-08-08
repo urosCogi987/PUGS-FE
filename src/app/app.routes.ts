@@ -11,7 +11,7 @@ import { DrivesMyComponent } from './pages/drives-my/drives-my.component';
 
 export const routes: Routes = [
     {
-      path: '',      
+      path: `${ApplicationRoutes.Dashboard}`,    
       loadComponent: () =>
         import('./pages/dashboard/dashboard.component').then(
           (c) => c.DashboardComponent
@@ -144,7 +144,7 @@ export const routes: Routes = [
     },
     {
       path: '**',
-      redirectTo: '',
+      redirectTo: `${ApplicationRoutes.Dashboard}`,
       pathMatch: 'full',
     },
   ];

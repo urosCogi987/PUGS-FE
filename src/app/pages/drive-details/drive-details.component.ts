@@ -5,11 +5,16 @@ import { DriveService } from '../../shared/services/drive/drive.service';
 import { ActivatedRoute } from '@angular/router';
 import { IDriveDetailsResponse } from '../../shared/models/drive/driveDetailsResponse';
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
+import { RateDriverComponent } from "./rate-driver/rate-driver.component";
+import { IRateDriverRequest } from '../../shared/models/drive/rateDriverRequest';
 
 @Component({
   selector: 'drive-details',
   standalone: true,
-  imports: [SpinnerComponent],
+  imports: [
+    SpinnerComponent,
+    RateDriverComponent
+  ],
   templateUrl: './drive-details.component.html',
   styleUrl: './drive-details.component.scss'
 })
@@ -18,6 +23,7 @@ export class DriveDetailsComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>;  
   protected isLoading: boolean = false;  
   protected drive!: IDriveDetailsResponse;
+  userRating: number = 0;
 
   constructor(
     private driveService: DriveService,
@@ -59,5 +65,13 @@ export class DriveDetailsComponent implements OnInit, OnDestroy {
     this.driveService.acceptDrive(this.drive.id).subscribe(() => {
       this.isLoading = false;
     });
+  }
+
+  protected rateDriver() {
+    this.isLoading = true;
+    const requestBody: IRateDriverRequest = { rating: this.userRating };
+    this.driveService.rateDriver(this.drive.id, requestBody).subscribe(() => {
+      this.isLoading = false;
+    })
   }
 }

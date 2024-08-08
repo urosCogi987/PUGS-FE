@@ -1,7 +1,7 @@
 @if (isLoading) {
     <app-spinner></app-spinner>
 } @else {
-    @if (driveCreated && !driveFinished) {
+    @if (driveCreated) {
         <div class="col-sm-6">
             <div>
                 <p>Driver will arive in approximately {{driveResponse.estimatedDriverArrivingTime}} minutes</p>
@@ -29,10 +29,6 @@
                     </button>
                 </div>
             </div>
-        </div>
-    } @else if (driveCreated && driveFinished) {
-        <div class="col-sm-6">
-            
         </div>
     } @else {    
         <div class="col-sm-6">

@@ -1,22 +1,29 @@
 :host {
-    .header-container {
-      mat-card {
-        --mdc-elevated-card-container-shape: 10px;
-        justify-content: space-between;
-        align-items: center;
-        flex-direction: row;
-        padding: 15px;
-      }
+  .logo {
+    img {
+      width: 115px;
+      height: auto;
     }
-  
-    .header-link {
-      font-size: 16px;
-      color: var(--link-color-black-template);
-      text-decoration: none;
-  
-      &.active {
-        text-decoration: underline;
-        text-underline-offset: 4px;
-      }
+  }
+
+  .header-container {
+    mat-card {
+      --mdc-elevated-card-container-shape: 10px;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
+      padding: 15px;
     }
+  }
+
+  .header-link {
+    font-size: 16px;
+    color: var(--link-color-black-template);
+    text-decoration: none;
+
+    &.active {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+  }
   }

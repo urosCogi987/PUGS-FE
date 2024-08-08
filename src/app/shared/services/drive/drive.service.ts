@@ -7,6 +7,7 @@ import { ICreateDriveRequest } from "../../models/drive/createDriveRequest";
 import { ICreatedDriveResponse } from "../../models/drive/createdDriveResponse";
 import { IDriveListItemResponse } from "../../models/drive/driveListItemResponse";
 import { IDriveDetailsResponse } from "../../models/drive/driveDetailsResponse";
+import { IRateDriverRequest } from "../../models/drive/rateDriverRequest";
 
 @Injectable({
     providedIn: 'root',
@@ -133,5 +134,22 @@ export class DriveService {
             return response;
           })
         );
+    }
+
+    public rateDriver(
+      id: string,
+      body: IRateDriverRequest 
+    ) : Observable<any> {
+      const rateDriverUrl = `${environment.apiBase}/${environment.apiDrive}/${id}/rate`;
+      var headers = this.getStandardOptions();
+
+      return this.http
+        .put(rateDriverUrl, body, headers)
+        .pipe(
+          tap((response) => {
+            console.log(response);
+            return response;
+          })
+        )
     }
 }
